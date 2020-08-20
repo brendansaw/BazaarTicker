@@ -1,3 +1,3 @@
 # BazaarTracker
 
-Bro this is kinda epic
+This is a program that will use the Hypixel Skyblock API to obtain data.
