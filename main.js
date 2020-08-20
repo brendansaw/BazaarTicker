@@ -2,8 +2,7 @@
 
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 $.getJSON(bazaarLink, function(data) {
-    //outputText = "Success value: " + data.success + "<br>lastUpdated value: " + data.lastUpdated; 
-    //inside = data.products.BROWN_MUSHROOM.quick_status.productId;
+
     products = data.products;
 
     itemList = [];
@@ -15,10 +14,33 @@ $.getJSON(bazaarLink, function(data) {
         itemSellPrice.push(products[item].quick_status.sellPrice);
     }
 
+    var inputBox = document.getElementById('searchInput');
     output = "";
-    for (i = 0; i < itemList.length; i++) {
-        output += itemList[i] + "   Buy Price: " + itemBuyPrice[i] + "   Sell Price: " + itemSellPrice[i] + "<br>";
+    inputBox.onkeyup = function() {
+        
+        searchArray = [];
+        if (inputBox.value.length > 0) {
+            for (item in itemList) {
+                //document.getElementById('searchbox').innerHTML = "InputBox value: " + inputBox.value + "<br>Thing to check: " + itemList[item] + "<br> True or false? " + itemList[item].includes(inputBox.value.toUpperCase());
+                if (itemList[item].includes(inputBox.value.toUpperCase())) {
+                    searchArray.push(itemList[item]);
+                }
+            }
+        }
+        output = "";
+        for (i = 0; i < searchArray.length; i++) {
+            output += searchArray[i] + "<br>";
+        }
+        //document.getElementById('searchbox').innerHTML = inputBox.value;
+        $(".interface").html(output);
     }
 
-    $(".interface").html(output);
+    
+
+   /*  output = "";
+    for (i = 0; i < itemList.length; i++) {
+        output += itemList[i] + "   Buy Price: " + itemBuyPrice[i] + "   Sell Price: " + itemSellPrice[i] + "<br>";
+    } */
+
+    
 });
