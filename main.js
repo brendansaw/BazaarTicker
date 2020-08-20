@@ -21,7 +21,6 @@ $.getJSON(bazaarLink, function(data) {
         searchArray = [];
         if (inputBox.value.length > 0) {
             for (item in itemList) {
-                //document.getElementById('searchbox').innerHTML = "InputBox value: " + inputBox.value + "<br>Thing to check: " + itemList[item] + "<br> True or false? " + itemList[item].includes(inputBox.value.toUpperCase());
                 if (itemList[item].includes(inputBox.value.toUpperCase())) {
                     searchArray.push(itemList[item]);
                 }
@@ -31,7 +30,6 @@ $.getJSON(bazaarLink, function(data) {
         for (i = 0; i < searchArray.length; i++) {
             output += searchArray[i] + "<br>";
         }
-        //document.getElementById('searchbox').innerHTML = inputBox.value;
         $(".interface").html(output);
     }
 
@@ -42,5 +40,5 @@ $.getJSON(bazaarLink, function(data) {
         output += itemList[i] + "   Buy Price: " + itemBuyPrice[i] + "   Sell Price: " + itemSellPrice[i] + "<br>";
     } */
 
-    
+    //$(".interface").html(output);
 });
