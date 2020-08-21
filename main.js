@@ -1,4 +1,7 @@
 // main.js
+
+var inputBox = document.getElementById('searchInput');
+
 enchantStatus = "all";
 function changedEnchanted() {
     if (document.getElementById("allEnchants").checked == true) {
@@ -10,6 +13,7 @@ function changedEnchanted() {
     else if (document.getElementById("unenchanted").checked == true) {
         enchantStatus = "unenchanted";
     }
+    $(inputBox).keyup();
 }
 
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
@@ -26,7 +30,7 @@ $.getJSON(bazaarLink, function(data) {
         itemSellPrice.push(products[item].quick_status.sellPrice);
     }
 
-    var inputBox = document.getElementById('searchInput');
+    
     output = "";
     inputBox.onkeyup = function() {
         
