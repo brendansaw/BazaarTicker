@@ -5,6 +5,7 @@
         <script src="jquery-3.5.1.js"></script>
         <title>Bazaar Test</title>
         <link rel="stylesheet" href="main.css">
+
     </head>
     <body>
         <form>
@@ -16,8 +17,23 @@
 
         <input type="text" name="fname" class="searchInput" id="searchInput">
         <button type = "button" id="searchButton">Get Prices</button>
+
         <br>
         <div class="sortedInterfaceDiv" id="sortedInterface"></div>
+
+        <div class="tableTopRight">
+            <table style="width:100%" id="priceTable", class="priceTable">
+            <tr>
+                <th>Buy Price</th>
+                <th>Sell Price</th>
+            </tr>
+            <tr>
+                <td id="itemBuyPrice">0.00</td>
+                <td id="itemSellPrice">0.00</td>
+            </tr>
+            </table>
+        </div>
+      
         <script src="main.js"></script>
     </body>
 </html>
