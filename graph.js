@@ -60,8 +60,8 @@ function updateGraph(){
     currBuy = itemBuyPrice[index];
     currSell = itemSellPrice[index];
 
-    sellData.push(currBuy);
-    buyData.push(currSell);   
+    sellData.push(currSell);
+    buyData.push(currBuy);   
     itemStatGraph.data.labels.push('boi');  
     itemStatGraph.update();    
 }
