@@ -55,20 +55,18 @@ $.getJSON(bazaarLink, function(data) {
                 }
             }
         }
-        output = "";
-        for (i = 0; i < searchArray.length; i++) {
-            output += searchArray[i] + "<br>";
-        }
-        $(".interface").html(output);
+        printButtonsToSite(searchArray);
     }
-    
-
-    
-
-   /*  output = "";
-    for (i = 0; i < itemList.length; i++) {
-        output += itemList[i] + "   Buy Price: " + itemBuyPrice[i] + "   Sell Price: " + itemSellPrice[i] + "<br>";
-    } */
-
-    //$(".interface").html(output);
 });
+
+function printButtonsToSite(arr) {
+    const container = document.getElementById('sortedInterface');
+    container.innerHTML = "";
+    for (i = 0; i < arr.length; i++) {
+        const button = document.createElement('button');
+        button.innerText = arr[i];
+        container.appendChild(button);
+        var br = document.createElement("br");
+        container.appendChild(br);
+    }
+}
