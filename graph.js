@@ -32,6 +32,18 @@ var itemStatGraph = new Chart(ctx, {
     options: {}
 });
 
+$.getJSON(bazaarLink, function(data) {
+    products = data.products;
+
+    itemList = [];
+    itemBuyPrice = [];
+    itemSellPrice = [];
+    for (item in products) {
+        itemList.push(products[item].quick_status.productId);
+        itemBuyPrice.push(products[item].quick_status.buyPrice);
+        itemSellPrice.push(products[item].quick_status.sellPrice);
+    }
+});
 // colllecting stat data
 function getStats(){
     $.getJSON(bazaarLink, function(data) {
@@ -46,8 +58,6 @@ function getStats(){
             itemSellPrice.push(products[item].quick_status.sellPrice);
         }
     
-        output = "";
-        $(".interface").html(output);
     });
 
     return [itemBuyPrice, itemSellPrice];
