@@ -33,6 +33,9 @@ $.getJSON(bazaarLink, function(data) {
         $(".interface").html(output);
     }
     buttonOTxt = "";
+    cell1 = document.getElementById("itemBuyPrice");
+    cell2 = document.getElementById("itemSellPrice");
+    
     searchButton.addEventListener ("click", function(){
         if (searchArray.length > 1) {
             alert("Too many items, limit your search to 1 item");
@@ -41,8 +44,11 @@ $.getJSON(bazaarLink, function(data) {
             alert("No item found, please enter a valid name");
         }
         else {
-            buttonOTxt = "Buy Price: " + products[searchArray[0]].quick_status.buyPrice + "             " + "Sell Price: " + products[searchArray[0]].quick_status.sellPrice;
-            alert(buttonOTxt);
+    /*             buttonOTxt = "Buy Price: " + products[searchArray[0]].quick_status.buyPrice.toFixed(2) + "             " + "Sell Price: " + products[searchArray[0]].quick_status.sellPrice.toFixed(2);
+                alert(buttonOTxt); */
+                cell1.textContent = products[searchArray[0]].quick_status.buyPrice.toFixed(2);
+                cell2.textContent = products[searchArray[0]].quick_status.sellPrice.toFixed(2);
+
         }
 
     })
