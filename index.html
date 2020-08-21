@@ -4,31 +4,23 @@
     <head>
         <script src="jquery-3.5.1.js"></script>
         <title>Bazaar Test</title>
-        <style>
-        .tableTopRight {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 15px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 5px;
-            text-align: left;
-        }
+        <link rel="stylesheet" href="main.css">
 
-
-    </style>
-        
     </head>
     <body>
+        <form>
+            <p>Item Filter: Enchanted Status</p>
+            <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
+            <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
+            <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
+        </form>
+
         <input type="text" name="fname" class="searchInput" id="searchInput">
         <button type = "button" id="searchButton">Get Prices</button>
 
-        <div class="interface"></div>
+        <br>
+        <div class="sortedInterfaceDiv" id="sortedInterface"></div>
+
         <div class="tableTopRight">
             <table style="width:100%" id="priceTable", class="priceTable">
             <tr>
@@ -41,6 +33,7 @@
             </tr>
             </table>
         </div>
+      
         <script src="main.js"></script>
     </body>
 </html>
