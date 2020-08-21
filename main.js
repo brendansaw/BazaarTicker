@@ -1,8 +1,20 @@
 // main.js
+enchantStatus = "all";
+function changedEnchanted() {
+    if (document.getElementById("allEnchants").checked == true) {
+        enchantStatus = "all";
+    } 
+    else if (document.getElementById("enchanted").checked == true) {
+        enchantStatus = "enchanted";
+    }        
+    else if (document.getElementById("unenchanted").checked == true) {
+        enchantStatus = "unenchanted";
+    }
+}
 
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 $.getJSON(bazaarLink, function(data) {
-
+    document.getElementById("allEnchants").checked = true;
     products = data.products;
 
     itemList = [];
@@ -22,7 +34,20 @@ $.getJSON(bazaarLink, function(data) {
         if (inputBox.value.length > 0) {
             for (item in itemList) {
                 if (itemList[item].includes(inputBox.value.toUpperCase())) {
-                    searchArray.push(itemList[item]);
+                    if (enchantStatus == "all") {
+                        searchArray.push(itemList[item]);
+                    }
+                    else if (enchantStatus == "enchanted") {
+                        if (itemList[item].includes("ENCHANTED")) {
+                            searchArray.push(itemList[item]);
+                        }
+                    }
+                    else if (enchantStatus == "unenchanted") {
+                        if (!itemList[item].includes("ENCHANTED")) {
+                            searchArray.push(itemList[item]);
+                        }
+                    }
+
                 }
             }
         }
@@ -32,6 +57,7 @@ $.getJSON(bazaarLink, function(data) {
         }
         $(".interface").html(output);
     }
+    
 
     
 
