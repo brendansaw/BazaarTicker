@@ -1,0 +1,7 @@
+.sortedInterfaceDiv {
+    display: inline-block;
+    border: 2px solid black;
+}
+div:empty {
+    display: none;
+ }
