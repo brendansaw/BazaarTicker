@@ -1,0 +1,22 @@
+.sortedInterfaceDiv {
+    display: inline-block;
+    border: 2px solid black;
+}
+div:empty {
+    display: none;
+}
+
+.priceTablePos {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 15px;
+}
+table, table.priceTableClass th, table.priceTableClass td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table.priceTableClass th, table.priceTableClass td {
+    padding: 5px;
+    text-align: left;
+}
