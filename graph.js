@@ -56,7 +56,12 @@ function updateGraph(){
     itemSellPrice = stats[1];
     
     var nowTime = new Date();
-    var currTime = nowTime.getHours() + ":" + nowTime.getMinutes() + ":" + nowTime.getSeconds();
+    minute = nowTime.getMinutes();
+    if (minute >= 0 && minute <= 9) minute = "0" + minute;
+    second = nowTime.getSeconds();
+    if (second >= 0 && second <= 9) second = "0" + second;
+
+    var currTime = nowTime.getHours() + ":" + minute + ":" + second;
 
     // TODO give input to update graph function
     index = itemBuyPrice.length-1
