@@ -54,6 +54,9 @@ function updateGraph(){
     stats = getStats();
     itemBuyPrice = stats[0];
     itemSellPrice = stats[1];
+    
+    var nowTime = new Date();
+    var currTime = nowTime.getHours() + ":" + nowTime.getMinutes() + ":" + nowTime.getSeconds();
 
     // TODO give input to update graph function
     index = itemBuyPrice.length-1
@@ -62,7 +65,7 @@ function updateGraph(){
 
     sellData.push(currSell);
     buyData.push(currBuy);   
-    itemStatGraph.data.labels.push('boi');  
+    itemStatGraph.data.labels.push(currTime);  
     itemStatGraph.update();    
 }
 
