@@ -1,4 +1,31 @@
-x = [0, 10, 5, 2, 20, 30, 45];
+x = [];
+y = [];
+
+// main.js
+
+bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
+
+function getStats(){
+    $.getJSON(bazaarLink, function(data) {
+        //outputText = "Success value: " + data.success + "<br>lastUpdated value: " + data.lastUpdated; 
+        //inside = data.products.BROWN_MUSHROOM.quick_status.productId;
+        products = data.products;
+    
+        itemList = [];
+        itemBuyPrice = [];
+        itemSellPrice = [];
+        for (item in products) {
+            itemList.push(products[item].quick_status.productId);
+            itemBuyPrice.push(products[item].quick_status.buyPrice);
+            itemSellPrice.push(products[item].quick_status.sellPrice);
+        }
+    
+        output = "";
+        $(".interface").html(output);
+    });
+
+    return [itemBuyPrice, itemSellPrice];
+}
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -6,11 +33,19 @@ var myChart = new Chart(ctx, {
     data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
+                label: 'Buy Price',
+                backgroundColor: 'rgb(255, 0, 0)',
                 fill: false,
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 0, 0)',
                 data: x
+            },
+
+            {
+                label: 'Sell Price',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                borderColor: 'rgb(0, 255, 0)',
+                data: y
             }]
         },
 
@@ -18,11 +53,20 @@ var myChart = new Chart(ctx, {
 });
 
 d = 0;
-while(d < 1200){
-    myChart.data.labels.push('boi');
-    x.push(12);
-    myChart.update();
-    d++;
-    print('boi')
+
+function update(){
+    stats = getStats();
+    itemBuyPrice = stats[0];
+    itemSellPrice = stats[1];
+
+    i = itemBuyPrice[itemBuyPrice.length-1];
+    i2 = itemSellPrice[itemSellPrice.length-1];
+
+    y.push(i2);
+    x.push(i);
+    myChart.data.labels.push('boi');     
+    myChart.update();    
 }
 
+
+window.setInterval(update, 5000);
