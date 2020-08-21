@@ -88,8 +88,8 @@ function printButtonsToSite(arr) {
         button.innerText = arr[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
-            cell1.textContent = products[arr[i]].quick_status.buyPrice.toFixed(2);
-            cell2.textContent = products[arr[i]].quick_status.sellPrice.toFixed(2);
+            cell1.textContent = products[button.innerText].quick_status.buyPrice.toFixed(2);
+            cell2.textContent = products[button.innerText].quick_status.sellPrice.toFixed(2);
         })
 
         var br = document.createElement("br");
