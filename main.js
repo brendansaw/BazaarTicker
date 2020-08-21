@@ -17,6 +17,7 @@ function changedEnchanted() {
 }
 
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
+
 $.getJSON(bazaarLink, function(data) {
     document.getElementById("allEnchants").checked = true;
     products = data.products;
@@ -29,8 +30,7 @@ $.getJSON(bazaarLink, function(data) {
         itemBuyPrice.push(products[item].quick_status.buyPrice);
         itemSellPrice.push(products[item].quick_status.sellPrice);
     }
-
-    
+  
     output = "";
     inputBox.onkeyup = function() {
         
@@ -91,3 +91,4 @@ function printButtonsToSite(arr) {
         container.appendChild(br);
     }
 }
+
