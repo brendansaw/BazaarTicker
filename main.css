@@ -6,7 +6,7 @@
     height:500px;
 }
 
-
+div.sortedInterfaceDiv:empty { display: none }
 
 .priceTablePos {
     position: absolute;
@@ -29,4 +29,5 @@ table.priceTableClass th, table.priceTableClass td {
     right: 10px;
     height: 200px;
     width: 400px;
+    border: 2px solid black;
 }

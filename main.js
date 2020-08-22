@@ -1,6 +1,7 @@
 // main.js
 
 var inputBox = document.getElementById('searchInput');
+
 selectedIndex = -1;
 enchantStatus = "all";
 function changedEnchanted() {
