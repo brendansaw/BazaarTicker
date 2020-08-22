@@ -1,7 +1,11 @@
 buyData = [];
 sellData = [];
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
-var ctx = document.getElementById('itemStatGraph').getContext('2d');
+graph = document.createElement('canvas');
+graph.width = 400;
+graph.height = 400;
+var ctx = graph.getContext('2d');
+const container = document.getElementById('interface');
 
 // creating charts
 var itemStatGraph = new Chart(ctx, {
@@ -42,15 +46,15 @@ function getStats(){
             itemSellPrice.push(products[item].quick_status.sellPrice);
         }
     
-        output = "";
-        $(".interface").html(output);
     });
 
     return [itemBuyPrice, itemSellPrice];
 }
 
+
 // update graph on screen
 function updateGraph(){
+    container.innerHTML = "";
     stats = getStats();
     itemBuyPrice = stats[0];
     itemSellPrice = stats[1];
@@ -72,8 +76,10 @@ function updateGraph(){
     buyData.push(currBuy);   
     itemStatGraph.data.labels.push(currTime);  
     itemStatGraph.update();    
+
+    container.appendChild(graph);
 }
 
-
+setTimeout(updateGraph, 1);
 //call update function every 5s
 window.setInterval(updateGraph, 5000);
