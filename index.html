@@ -22,16 +22,32 @@
         <br>
         <div class="sortedInterfaceDiv" id="sortedInterface"></div>
 
-        <div class="priceTablePos">
-            <table style="width:100%" id="priceTable" class="priceTableClass">
-                <caption id="itemCaption" class="itemCaptionClass">Item</caption>
+        <div class="priceBuyTablePos">
+            <table style="width:100%" id="priceBuyTable" class="priceBuyTableClass">
+                <caption id="itemBuyCaption" class="itemBuyCaptionClass">Buy</caption>
+            <tr>
+                <th>Orders</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td id="itemBuyPrice">0</td>
+                <td id="itemSellPrice">0</td>
+                <td id="itemPl">0.0</td>
+            </tr>
+            </table>
+        </div>
+        
+        <div class="priceSellTablePos">
+            <table style="width:100%" id="priceSellTable" class="priceSellTableClass">
+                <caption id="itemSellCaption" class="itemSellCaptionClass">Sell</caption>
             <tr>
                 <th>Buy Price</th>
                 <th>Sell Price</th>
             </tr>
             <tr>
-                <td id="itemBuyPrice">0.00</td>
-                <td id="itemSellPrice">0.00</td>
+                <td id="itemBuyPrice1">0.00</td>
+                <td id="itemSellPrice1">0.00</td>
             </tr>
             </table>
         </div>
