@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="Chart.js"></script>
         <script src="jquery-3.5.1.js"></script>
         <title>Bazaar Test</title>
         <link rel="stylesheet" href="main.css">
@@ -23,7 +22,8 @@
         <div class="sortedInterfaceDiv" id="sortedInterface"></div>
 
         <div class="priceTablePos">
-            <table style="width:100%" id="priceTable", class="priceTableClass">
+            <table style="width:100%" id="priceTable" class="priceTableClass">
+                <caption id="itemCaption" class="itemCaptionClass">Item</caption>
             <tr>
                 <th>Buy Price</th>
                 <th>Sell Price</th>
@@ -34,9 +34,8 @@
             </tr>
             </table>
         </div>
-        
-        <div class="graphDisplay" id="interface"></div>
-        <script src="graph.js"></script>
+
+      
         <script src="main.js"></script>
     </body>
 </html>

@@ -67,6 +67,7 @@ $.getJSON(bazaarLink, function(data) {
 buttonOTxt = "";
 cell1 = document.getElementById("itemBuyPrice");
 cell2 = document.getElementById("itemSellPrice");
+cellCap = document.getElementById("itemCaption");
 
 searchButton.addEventListener ("click", function(){
     if (searchArray.length > 1) {
@@ -80,6 +81,7 @@ searchButton.addEventListener ("click", function(){
             alert(buttonOTxt); */
             cell1.textContent = products[searchArray[0]].quick_status.buyPrice.toFixed(2);
             cell2.textContent = products[searchArray[0]].quick_status.sellPrice.toFixed(2);
+            
 
     }
 
@@ -97,6 +99,7 @@ function printButtonsToSite(arr, arrIndex) {
             cell1.textContent = products[button.innerText].quick_status.buyPrice.toFixed(2);
             cell2.textContent = products[button.innerText].quick_status.sellPrice.toFixed(2);
             selectedIndex = button.value;
+            cellCap.textContent = button.innerText;
 
             while (buyData.length > 0) {
                 buyData.pop();
