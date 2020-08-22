@@ -3,13 +3,16 @@
     border: 2px solid black;
     display: inline-block;
     background-color: lightgray;
+    left: 10px;
+    position: absolute;
+    padding: 2px;
 }
 
 .sortedInterfaceDiv {
     display: inline-block;
     border: 2px solid black;
     overflow: scroll;
-    width:300px;
+    width:310px;
     height:500px;
     background-color: white;
 }

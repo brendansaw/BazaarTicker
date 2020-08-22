@@ -4,11 +4,9 @@
     <head>
         <meta charset="utf-8">
         
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bootstrap.min.css">
         <script src="jquery-3.5.1.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
+        
         <script src="Chart.js"></script>
         <title>Bazaar Tracker</title>
         <link rel="stylesheet" href="main.css">
@@ -20,7 +18,7 @@
         <nav class="navbar navbar-inverse" style="background-color: #3C4145">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="https://hypixel.net">Bazaar Tracker</a>
+                    <a class="navbar-brand" onclick=location.reload()>Bazaar Tracker</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <span class="navbar-text">Created by:</span>
@@ -30,14 +28,15 @@
                 </ul>
                 </div>
         </nav>
+
         <div class="searchInterfaceDiv" id="searchInterface">
             <form>
-                <p>Item Filter: Enchanted Status</p>
+                <p><b>Enchanted Status Item Filter:</b></p>
                 <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
                 <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
                 <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
-            </form>
-    
+            </form><br>
+            <p><b>Search for an item:</b></p>
             <input type="text" name="fname" class="searchInput" id="searchInput">
             <button type = "button" id="searchButton">Get Prices</button>
     
@@ -59,8 +58,10 @@
             </table>
         </div>
 
+        
         <div class="graphDisplay" id="graphDiv"></div>
         <script src="graph.js"></script>
         <script src="main.js"></script>
+
     </body>
 </html>
