@@ -101,6 +101,7 @@ function printButtonsToSite(arr, arrIndex) {
             while (buyData.length > 0) {
                 buyData.pop();
                 sellData.pop();
+                itemStatGraph.data.labels.pop();
             }
         })
 
