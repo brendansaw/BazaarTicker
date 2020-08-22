@@ -93,6 +93,7 @@ function printButtonsToSite(arr, arrIndex) {
     container.innerHTML = "";
     for (i = 0; i < arr.length; i++) {
         const button = document.createElement('button');
+        button.className = "searchButton";
         button.innerText = arr[i];
         button.value = arrIndex[i];
         container.appendChild(button);
