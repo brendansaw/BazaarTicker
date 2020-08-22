@@ -64,10 +64,7 @@ $.getJSON(bazaarLink, function(data) {
     }
 });
 
-buttonOTxt = "";
-cell1 = document.getElementById("itemBuyPrice");
-cell2 = document.getElementById("itemSellPrice");
-cell3 = document.getElementById("itemPl")
+
 cellBuyCap = document.getElementById("itemBuyCaption");
 cellSellCap = document.getElementById("itemSellCaption");
 
@@ -101,9 +98,36 @@ function getBuySellSummary(itemIndex) {
             itemBuySum.push(products[itemIndex].buy_summary[i]);
         }
         
-        cell1.textContent = itemSellSum[0].orders;
-        cell2.textContent = itemSellSum[0].amount;
-        cell3.textContent = itemSellSum[0].pricePerUnit;
+        buyTableRef = document.getElementById("buyBody_id");
+        sellTableRef = document.getElementById("sellBody_id")
+
+        for (j in products[itemIndex].buy_summary) {
+            newRow = buyTableRef.insertRow(-1);
+
+            for (i = 0; i < 3; ++i) {
+                newCell = newRow.insertCell(0);
+                if (i == 2)
+                newCell.innerHTML = itemBuySum[j].orders;
+                else if (i == 1) 
+                newCell.innerHTML = itemBuySum[j].amount;
+                else
+                newCell.innerHTML = itemBuySum[j].pricePerUnit;
+            }
+        }   
+        for (j in products[itemIndex].sell_summary) {
+            newRow = sellTableRef.insertRow(-1);
+
+            for (i = 0; i < 3; ++i) {
+                newCell = newRow.insertCell(0);
+                if (i == 0)
+                newCell.innerHTML = itemSellSum[j].orders;
+                else if (i == 1) 
+                newCell.innerHTML = itemSellSum[j].amount;
+                else
+                newCell.innerHTML = itemSellSum[j].pricePerUnit;
+            }
+        }  
+
 
 
     });
@@ -112,7 +136,7 @@ function getBuySellSummary(itemIndex) {
 
 }
 
-getBuySellSummary("DIAMOND");
+
 
 function printButtonsToSite(arr, arrIndex) {
     const container = document.getElementById('sortedInterface');
@@ -123,11 +147,13 @@ function printButtonsToSite(arr, arrIndex) {
         button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
-            cell1.textContent = products[button.innerText].quick_status.buyPrice.toFixed(2);
-            cell2.textContent = products[button.innerText].quick_status.sellPrice.toFixed(2);
+     
             selectedIndex = button.value;
             cellBuyCap.textContent = "Buy " + button.innerText;
             cellSellCap.textContent = "Sell " + button.innerText;
+            document.getElementById("buyBody_id").innerHTML = "";
+            document.getElementById("sellBody_id").innerHTML = "";
+            getBuySellSummary(button.innerText);
 
             while (buyData.length > 0) {
                 buyData.pop();
