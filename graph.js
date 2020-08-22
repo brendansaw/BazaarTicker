@@ -5,7 +5,7 @@ graph = document.createElement('canvas');
 graph.width = 400;
 graph.height = 200;
 var ctx = graph.getContext('2d');
-container = document.getElementById('interface');
+container = document.getElementById('graphDiv');
 
 // creating charts
 var itemStatGraph = new Chart(ctx, {
