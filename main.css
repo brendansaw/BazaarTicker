@@ -5,9 +5,8 @@
     width:300px;
     height:500px;
 }
-div:empty {
-    display: none;
-}
+
+
 
 .priceTablePos {
     position: absolute;
@@ -22,4 +21,12 @@ table, table.priceTableClass th, table.priceTableClass td {
 table.priceTableClass th, table.priceTableClass td {
     padding: 5px;
     text-align: left;
+}
+
+.graphDisplay {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    height: 200px;
+    width: 400px;
 }

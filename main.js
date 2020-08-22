@@ -1,7 +1,7 @@
 // main.js
 
 var inputBox = document.getElementById('searchInput');
-
+selectedIndex = -1;
 enchantStatus = "all";
 function changedEnchanted() {
     if (document.getElementById("allEnchants").checked == true) {
@@ -19,6 +19,7 @@ function changedEnchanted() {
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 
 $.getJSON(bazaarLink, function(data) {
+
     document.getElementById("allEnchants").checked = true;
     products = data.products;
 
@@ -35,27 +36,31 @@ $.getJSON(bazaarLink, function(data) {
     inputBox.onkeyup = function() {
         
         searchArray = [];
+        searchArrayIndex = [];
         if (inputBox.value.length > 0) {
             for (item in itemList) {
                 if (itemList[item].includes(inputBox.value.toUpperCase())) {
                     if (enchantStatus == "all") {
                         searchArray.push(itemList[item]);
+                        searchArrayIndex.push(item);
                     }
                     else if (enchantStatus == "enchanted") {
                         if (itemList[item].includes("ENCHANTED")) {
                             searchArray.push(itemList[item]);
+                            searchArrayIndex.push(item);
                         }
                     }
                     else if (enchantStatus == "unenchanted") {
                         if (!itemList[item].includes("ENCHANTED")) {
                             searchArray.push(itemList[item]);
+                            searchArrayIndex.push(item);
                         }
                     }
 
                 }
             }
         }
-        printButtonsToSite(searchArray);
+        printButtonsToSite(searchArray, searchArrayIndex);
     }
 });
 
@@ -80,16 +85,23 @@ searchButton.addEventListener ("click", function(){
 
 })
 
-function printButtonsToSite(arr) {
+function printButtonsToSite(arr, arrIndex) {
     const container = document.getElementById('sortedInterface');
     container.innerHTML = "";
     for (i = 0; i < arr.length; i++) {
         const button = document.createElement('button');
         button.innerText = arr[i];
+        button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
             cell1.textContent = products[button.innerText].quick_status.buyPrice.toFixed(2);
             cell2.textContent = products[button.innerText].quick_status.sellPrice.toFixed(2);
+            selectedIndex = button.value;
+
+            while (buyData.length > 0) {
+                buyData.pop();
+                sellData.pop();
+            }
         })
 
         var br = document.createElement("br");

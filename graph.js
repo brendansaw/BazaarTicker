@@ -3,9 +3,9 @@ sellData = [];
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 graph = document.createElement('canvas');
 graph.width = 400;
-graph.height = 400;
+graph.height = 200;
 var ctx = graph.getContext('2d');
-const container = document.getElementById('interface');
+container = document.getElementById('interface');
 
 // creating charts
 var itemStatGraph = new Chart(ctx, {
@@ -54,6 +54,9 @@ function getStats(){
 
 // update graph on screen
 function updateGraph(){
+    if (selectedIndex == -1) {
+        return;
+    } 
     container.innerHTML = "";
     stats = getStats();
     itemBuyPrice = stats[0];
@@ -67,15 +70,17 @@ function updateGraph(){
 
     var currTime = nowTime.getHours() + ":" + minute + ":" + second;
 
-    // TODO give input to update graph function
-    index = itemBuyPrice.length-1
-    currBuy = itemBuyPrice[index];
-    currSell = itemSellPrice[index];
+    //temporarily set to 0
+    currBuy = itemBuyPrice[selectedIndex];
+    currSell = itemSellPrice[selectedIndex];
 
     sellData.push(currSell);
     buyData.push(currBuy);   
     itemStatGraph.data.labels.push(currTime);  
     itemStatGraph.update();    
+    console.log(currBuy);
+    console.log(currSell);
+    console.log(selectedIndex);
 
     container.appendChild(graph);
 }
