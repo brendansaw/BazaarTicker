@@ -29,6 +29,7 @@
                 </div>
         </nav>
 
+
         <div class="searchInterfaceDiv" id="searchInterface">
             <form>
                 <p><b>Enchanted Status Item Filter:</b></p>
@@ -38,23 +39,37 @@
             </form><br>
             <p><b>Search for an item:</b></p>
             <input type="text" name="fname" class="searchInput" id="searchInput">
-            <button type = "button" id="searchButton">Get Prices</button>
+            <button type = "button" id="searchButton" class= "searchButton_class">Get Prices</button>
     
             <br>
             <div class="sortedInterfaceDiv" id="sortedInterface"></div>
         </div> 
 
-        <div class="priceTablePos">
-            <table style="width:100%" id="priceTable" class="priceTableClass">
-                <caption id="itemCaption" class="itemCaptionClass">Item</caption>
-            <tr>
-                <th>Buy Price</th>
-                <th>Sell Price</th>
-            </tr>
-            <tr>
-                <td id="itemBuyPrice">0.00</td>
-                <td id="itemSellPrice">0.00</td>
-            </tr>
+        <div class="priceBuyTablePos">
+            <table style="width:100%" id="priceBuyTable" class="priceBuyTableClass">
+                <thead>
+                    <caption id="itemBuyCaption" class="itemBuyCaptionClass">Buy</caption>
+                    <tr>
+                        <th>Orders</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="buyBody_id" class ="buyBody_class">  
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="priceSellTablePos">
+            <table style="width:100%" id="priceSellTable" class="priceSellTableClass">
+                <caption id="itemSellCaption" class="itemSellCaptionClass">Sell</caption>
+                <tr>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Orders</th>
+                </tr>
+                <tbody id="sellBody_id" class ="sellBody_class">
+                </tbody>
             </table>
         </div>
 

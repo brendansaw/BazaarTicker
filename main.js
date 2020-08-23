@@ -65,10 +65,9 @@ $.getJSON(bazaarLink, function(data) {
     }
 });
 
-buttonOTxt = "";
-cell1 = document.getElementById("itemBuyPrice");
-cell2 = document.getElementById("itemSellPrice");
-cellCap = document.getElementById("itemCaption");
+
+cellBuyCap = document.getElementById("itemBuyCaption");
+cellSellCap = document.getElementById("itemSellCaption");
 
 searchButton.addEventListener ("click", function(){
     if (searchArray.length > 1) {
@@ -78,8 +77,7 @@ searchButton.addEventListener ("click", function(){
         alert("No item found, please enter a valid name");
     }
     else {
-/*             buttonOTxt = "Buy Price: " + products[searchArray[0]].quick_status.buyPrice.toFixed(2) + "             " + "Sell Price: " + products[searchArray[0]].quick_status.sellPrice.toFixed(2);
-            alert(buttonOTxt); */
+
             cell1.textContent = products[searchArray[0]].quick_status.buyPrice.toFixed(2);
             cell2.textContent = products[searchArray[0]].quick_status.sellPrice.toFixed(2);
             
@@ -87,6 +85,59 @@ searchButton.addEventListener ("click", function(){
     }
 
 })
+
+function getBuySellSummary(itemIndex) {
+    itemSellSum = [];
+    itemBuySum = [];
+    
+    $.getJSON(bazaarLink, function(data){
+        products = data.products;
+        for (i in products[itemIndex].sell_summary) {
+            itemSellSum.push(products[itemIndex].sell_summary[i]);
+        }
+        for (i in products[itemIndex].buy_summary) {
+            itemBuySum.push(products[itemIndex].buy_summary[i]);
+        }
+        
+        buyTableRef = document.getElementById("buyBody_id");
+        sellTableRef = document.getElementById("sellBody_id")
+
+        for (j in products[itemIndex].buy_summary) {
+            newRow = buyTableRef.insertRow(-1);
+
+            for (i = 0; i < 3; ++i) {
+                newCell = newRow.insertCell(0);
+                if (i == 2)
+                newCell.innerHTML = itemBuySum[j].orders;
+                else if (i == 1) 
+                newCell.innerHTML = itemBuySum[j].amount;
+                else
+                newCell.innerHTML = itemBuySum[j].pricePerUnit;
+            }
+        }   
+        for (j in products[itemIndex].sell_summary) {
+            newRow = sellTableRef.insertRow(-1);
+
+            for (i = 0; i < 3; ++i) {
+                newCell = newRow.insertCell(0);
+                if (i == 0)
+                newCell.innerHTML = itemSellSum[j].orders;
+                else if (i == 1) 
+                newCell.innerHTML = itemSellSum[j].amount;
+                else
+                newCell.innerHTML = itemSellSum[j].pricePerUnit;
+            }
+        }  
+
+
+
+    });
+
+    
+
+}
+
+
 
 function printButtonsToSite(arr, arrIndex) {
     const container = document.getElementById('sortedInterface');
@@ -98,10 +149,13 @@ function printButtonsToSite(arr, arrIndex) {
         button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
-            cell1.textContent = products[button.innerText].quick_status.buyPrice.toFixed(2);
-            cell2.textContent = products[button.innerText].quick_status.sellPrice.toFixed(2);
+     
             selectedIndex = button.value;
-            cellCap.textContent = button.innerText;
+            cellBuyCap.textContent = "Buy " + button.innerText;
+            cellSellCap.textContent = "Sell " + button.innerText;
+            document.getElementById("buyBody_id").innerHTML = "";
+            document.getElementById("sellBody_id").innerHTML = "";
+            getBuySellSummary(button.innerText);
 
             while (buyData.length > 0) {
                 buyData.pop();
