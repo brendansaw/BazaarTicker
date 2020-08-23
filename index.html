@@ -1,26 +1,49 @@
 <!--- index.html --->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <script src="Chart.js"></script>
+        <meta charset="utf-8">
+        
+        <link rel="stylesheet" href="bootstrap.min.css">
         <script src="jquery-3.5.1.js"></script>
-        <title>Bazaar Test</title>
+        
+        <script src="Chart.js"></script>
+        <title>Bazaar Tracker</title>
         <link rel="stylesheet" href="main.css">
+        
 
     </head>
     <body>
-        <form>
-            <p>Item Filter: Enchanted Status</p>
-            <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
-            <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
-            <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
-        </form>
 
-        <input type="text" name="fname" class="searchInput" id="searchInput">
-        <button type = "button" id="searchButton" class= "searchButton_class">Get Prices</button>
+        <nav class="navbar navbar-inverse" style="background-color: #3C4145">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" onclick=location.reload()>Bazaar Tracker</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <span class="navbar-text">Created by:</span>
+                    <li><a href="https://github.com/brendansaw">Brendan Saw</a></li>
+                    <li><a href="https://github.com/MarkusH17">Markus Hughes</a></li>
+                    <li><a href="https://github.com/Cleanliness">Roy Li</a></li>
+                </ul>
+                </div>
+        </nav>
 
-        <br>
-        <div class="sortedInterfaceDiv" id="sortedInterface"></div>
+
+        <div class="searchInterfaceDiv" id="searchInterface">
+            <form>
+                <p><b>Enchanted Status Item Filter:</b></p>
+                <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
+                <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
+                <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
+            </form><br>
+            <p><b>Search for an item:</b></p>
+            <input type="text" name="fname" class="searchInput" id="searchInput">
+            <button type = "button" id="searchButton" class= "searchButton_class">Get Prices</button>
+    
+            <br>
+            <div class="sortedInterfaceDiv" id="sortedInterface"></div>
+        </div> 
 
         <div class="priceBuyTablePos">
             <table style="width:100%" id="priceBuyTable" class="priceBuyTableClass">
@@ -50,8 +73,10 @@
             </table>
         </div>
 
+        
         <div class="graphDisplay" id="graphDiv"></div>
         <script src="graph.js"></script>
         <script src="main.js"></script>
+
     </body>
 </html>
