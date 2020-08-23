@@ -107,6 +107,7 @@ function getBuySellSummary(itemIndex) {
 
             for (i = 0; i < 3; ++i) {
                 newCell = newRow.insertCell(0);
+                newCell.className = "danger";
                 if (i == 2)
                 newCell.innerHTML = itemBuySum[j].orders;
                 else if (i == 1) 
@@ -120,6 +121,7 @@ function getBuySellSummary(itemIndex) {
 
             for (i = 0; i < 3; ++i) {
                 newCell = newRow.insertCell(0);
+                newCell.className = "success";
                 if (i == 0)
                 newCell.innerHTML = itemSellSum[j].orders;
                 else if (i == 1) 

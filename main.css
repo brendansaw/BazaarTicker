@@ -27,47 +27,28 @@ div.sortedInterfaceDiv:empty { display: none }
 
 .priceBuyTablePos {
     position: absolute;
-    top: 200px;
-    right: 400px;
+    top: 400px;
+    left: 400px;
     font-size: 15px;
-    overflow: scroll;
-    overflow-x: hidden;
-    height: 500px;
-    display: inline-block;
-}
-table, table.priceBuyTableClass th, table.priceBuyTableClass td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-table.priceBuyTableClass th, table.priceBuyTableClass td {
-    padding: 5px;
-    text-align: left;
+    width: 300px;
+    padding: 10px;
 }
 
 .priceSellTablePos {
     position: absolute;
-    top: 200px;
-    right: 10px;
+    top: 400px;
+    left: 710px;
     font-size: 15px;
-    overflow: scroll;
-    overflow-x: hidden;
-    height: 500px;
-    display: inline-block;
+    width: 300px;
+    padding: 10px;
 }
-table, table.priceSellTableClass th, table.priceSellTableClass td {
-    border: 1px solid green;
-    border-collapse: collapse;
-}
-table.priceSellTableClass th, table.priceSellTableClass td {
-    padding: 5px;
-    text-align: right;
-}
+
 
 .graphDisplay {
     position: absolute;
-    top: 200px;
-    right: 10px;
-    height: 200px;
-    width: 400px;
+    top: 70px;
+    left: 400px;
+    height: 300px;
+    width: 600px;
     border: 2px solid black;
 }
