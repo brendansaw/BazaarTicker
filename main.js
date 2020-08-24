@@ -139,6 +139,11 @@ function getBuySellSummary(itemIndex) {
 
 }
 
+function getItemImage(imgIndex) {
+    itemImgStr = imgIndex.replace(":",".");
+    document.getElementById("itemImgId").innerHTML +=
+       "<img src='itemImages/" + itemImgStr + ".png'>";
+}
 
 
 function printButtonsToSite(arr, arrIndex) {
@@ -157,7 +162,9 @@ function printButtonsToSite(arr, arrIndex) {
             cellSellCap.textContent = "Sell " + button.innerText;
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
+            document.getElementById("itemImgId").innerHTML = "";
             getBuySellSummary(button.innerText);
+            getItemImage(button.innerText);
 
             while (buyData.length > 0) {
                 buyData.pop();

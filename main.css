@@ -52,3 +52,10 @@ div.sortedInterfaceDiv:empty { display: none }
     width: 600px;
     border: 2px solid black;
 }
+
+.itemImgDiv {
+    position: absolute;
+    top: 55px;
+    right: 50px;
+    
+}
