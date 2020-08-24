@@ -32,6 +32,7 @@ $.getJSON(bazaarLink, function(data) {
         itemBuyPrice.push(products[item].quick_status.buyPrice);
         itemSellPrice.push(products[item].quick_status.sellPrice);
     }
+
   
     output = "";
     inputBox.onkeyup = function() {
@@ -134,9 +135,6 @@ function getBuySellSummary(itemIndex) {
 
 
     });
-
-    
-
 }
 
 function getItemImage(imgIndex) {
@@ -152,19 +150,21 @@ function printButtonsToSite(arr, arrIndex) {
     for (i = 0; i < arr.length; i++) {
         const button = document.createElement('button');
         button.className = "searchButton";
-        button.innerText = arr[i];
+        button.id = arr[i];
+        $.getJSON('./itemDictionary.json', function(dictData) {
+            button.innerText = dictData[button.id];
+        })
         button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
-     
             selectedIndex = button.value;
-            cellBuyCap.textContent = "Buy " + button.innerText;
-            cellSellCap.textContent = "Sell " + button.innerText;
+            cellBuyCap.textContent = "Buy " + button.id;
+            cellSellCap.textContent = "Sell " + button.id;
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
             document.getElementById("itemImgId").innerHTML = "";
-            getBuySellSummary(button.innerText);
-            getItemImage(button.innerText);
+            getBuySellSummary(button.id);
+            getItemImage(button.id);
 
             while (buyData.length > 0) {
                 buyData.pop();
@@ -177,4 +177,5 @@ function printButtonsToSite(arr, arrIndex) {
         container.appendChild(br);
     }
 }
+
 
