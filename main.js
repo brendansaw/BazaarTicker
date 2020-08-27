@@ -67,25 +67,6 @@ $.getJSON(bazaarLink, function(data) {
 });
 
 
-cellBuyCap = document.getElementById("itemBuyCaption");
-cellSellCap = document.getElementById("itemSellCaption");
-
-searchButton.addEventListener ("click", function(){
-    if (searchArray.length > 1) {
-        alert("Too many items, limit your search to 1 item");
-    }
-    else if (searchArray.length < 1) {
-        alert("No item found, please enter a valid name");
-    }
-    else {
-
-            cell1.textContent = products[searchArray[0]].quick_status.buyPrice.toFixed(2);
-            cell2.textContent = products[searchArray[0]].quick_status.sellPrice.toFixed(2);
-            
-
-    }
-
-})
 
 function getBuySellSummary(itemIndex) {
     itemSellSum = [];
@@ -158,8 +139,7 @@ function printButtonsToSite(arr, arrIndex) {
         container.appendChild(button);
         button.addEventListener("click", function() {
             selectedIndex = button.value;
-            cellBuyCap.textContent = "Buy " + button.id;
-            cellSellCap.textContent = "Sell " + button.id;
+
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
             document.getElementById("itemImgId").innerHTML = "";
