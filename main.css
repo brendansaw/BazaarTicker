@@ -64,3 +64,10 @@ div.sortedInterfaceDiv:empty { display: none }
     background-image: radial-gradient(circle, #2F95DA, #3E515D);
     
 }
+
+.emailForm {
+    position: absolute;
+    top: 120px;
+    right: 40px;
+
+}
