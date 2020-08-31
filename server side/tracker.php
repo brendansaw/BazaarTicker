@@ -297,14 +297,14 @@ else{
 	echo 'connected succ';
 }
 
-
+/*
 while(true){
 	updateDB($mysqli);
 	sleep(10);
-}
+}*/
 
-//$d = getAverage($mysqli, "bazaarsecond2", "044017", "045657");
-//print_r($d);
+$d = getAverage($mysqli, "bazaarsecond2", "044017", "045657");
+print_r($d);
 
 $mysqli -> close();
 
