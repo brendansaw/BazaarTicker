@@ -1,8 +1,11 @@
 $.ajax({
-    url : 'getDataFromServer.php', // your php file
-    type : 'GET', // type of the HTTP request
-    success : function(data){
-       var obj = data;
-       console.log(obj);
+    type: "GET",
+    url: 'getDataFromServer.php',
+    data: $(this).serialize(),
+    success: function(response)
+    {
+        jsonData = JSON.parse(response);
+        //alert(jsonData);
+        document.getElementById("mainItem").innerHTML = jsonData;
     }
- });
+});
