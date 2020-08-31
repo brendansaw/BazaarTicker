@@ -166,3 +166,13 @@ function printButtonsToSite(arr, arrIndex) {
     }
 }
 
+
+$.ajax({
+    type: 'POST',
+    url: "formtoJSON.php",
+    data: {},
+    success: function() {
+
+        console.log("bruh");
+    }
+});
