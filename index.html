@@ -84,8 +84,10 @@
                 <input type="radio" id="Buy" name ="buyorsell" value="Buy">
                 <label for="Buy">Buy</label><br>
                 <input type="radio" id="Sell" name="buyorsell" value="Sell">
-                <label for="Sell">Sell</label><br>
-                <button id="dataButton" onclick="sendMail()">Add Request</button>
+                <label for="Sell">Sell</label><br><br>
+                <label for="price">Price</label><br>
+                <input type="text" id="priceReq" name="priceReq" size="30" value=""><br><br>
+                <button id="dataButton" onclick="addReqToJSON()">Add Request</button>
                 <input type="reset">
                 
             </form>
