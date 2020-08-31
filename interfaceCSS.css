@@ -1,0 +1,13 @@
+.mainDiv {
+    height: 100%;
+}
+
+#leftDiv.mainDiv {
+    background-color: beige;
+}
+#midDiv.mainDiv {
+    background-color: cyan;
+}
+#rightDiv.mainDiv {
+    background-color: red;
+}
