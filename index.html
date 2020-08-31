@@ -6,7 +6,7 @@
         
         <link rel="stylesheet" href="bootstrap.min.css">
         <script src="jquery-3.5.1.js"></script>
-        
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
         <script src="Chart.js"></script>
         <title>Bazaar Tracker</title>
         <link rel="stylesheet" href="main.css">
@@ -74,10 +74,30 @@
             </table>
         </div>
 
+        <div class="emailForm">
+            <form name="Data Form" onsubmit="return false">
+                <label for="uemail">Email</label><br>
+                <input type="email" id="uemail" name="uemail" autocomplete="on" size="30"><br><br>
+                <label for="formItem">Selected Item</label><br>
+                <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
+                <br> 
+                <input type="radio" id="Buy" name ="buyorsell" value="Buy">
+                <label for="Buy">Buy</label><br>
+                <input type="radio" id="Sell" name="buyorsell" value="Sell">
+                <label for="Sell">Sell</label><br><br>
+                <label for="price">Price</label><br>
+                <input type="text" id="priceReq" name="priceReq" size="30" value=""><br><br>
+                <button id="dataButton" onclick="sendMail()">Add Request</button>
+                <input type="reset">
+                
+            </form>
+        </div>
+
         
         <div class="graphDisplay" id="graphDiv"></div>
         <script src="graph.js"></script>
         <script src="main.js"></script>
+        <script src="email.js"></script>
 
     </body>
 </html>

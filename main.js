@@ -90,6 +90,7 @@ function getBuySellSummary(itemIndex) {
             for (i = 0; i < 3; ++i) {
                 newCell = newRow.insertCell(0);
                 newCell.className = "danger";
+                newCell.id = "buy"+i+j;
                 if (i == 2)
                 newCell.innerHTML = itemBuySum[j].orders;
                 else if (i == 1) 
@@ -104,6 +105,7 @@ function getBuySellSummary(itemIndex) {
             for (i = 0; i < 3; ++i) {
                 newCell = newRow.insertCell(0);
                 newCell.className = "success";
+                newCell.id = "sell"+i+j;
                 if (i == 0)
                 newCell.innerHTML = itemSellSum[j].orders;
                 else if (i == 1) 
@@ -123,9 +125,12 @@ function getItemImage(imgIndex) {
     document.getElementById("itemImgId").innerHTML +=
        "<img src='itemImages/" + itemImgStr + ".png'>";
 }
-
+function updateFormItem(itemName) {
+    document.getElementById("formItem").value = itemName;
+}
 
 function printButtonsToSite(arr, arrIndex) {
+    const itemform = document.getElementById("formItem");
     const container = document.getElementById('sortedInterface');
     container.innerHTML = "";
     for (i = 0; i < arr.length; i++) {
@@ -140,11 +145,14 @@ function printButtonsToSite(arr, arrIndex) {
         button.addEventListener("click", function() {
             selectedIndex = button.value;
 
+
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
             document.getElementById("itemImgId").innerHTML = "";
+            
             getBuySellSummary(button.id);
             getItemImage(button.id);
+            updateFormItem(button.id);
 
             while (buyData.length > 0) {
                 buyData.pop();
@@ -159,3 +167,12 @@ function printButtonsToSite(arr, arrIndex) {
 }
 
 
+$.ajax({
+    type: 'POST',
+    url: "formtoJSON.php",
+    data: {},
+    success: function() {
+
+        console.log("bruh");
+    }
+});
