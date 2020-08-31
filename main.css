@@ -1,11 +1,7 @@
 .searchInterfaceDiv {
     display: inline-block;
     border: 2px solid black;
-    display: inline-block;
     background-color: lightgray;
-    left: 10px;
-    position: absolute;
-    padding: 2px;
 }
 
 .sortedInterfaceDiv {
@@ -26,48 +22,53 @@ div.sortedInterfaceDiv:empty { display: none }
 }
 
 .priceBuyTablePos {
-    position: absolute;
-    top: 400px;
-    left: 400px;
     font-size: 15px;
-    width: 300px;
+    width: 50%;
     padding: 10px;
+    float: left;
 }
 
 .priceSellTablePos {
-    position: absolute;
-    top: 400px;
-    left: 710px;
     font-size: 15px;
-    width: 300px;
+    width: 50%;
     padding: 10px;
+    float: left;
+    text-align: right;
 }
 
 
 .graphDisplay {
-    position: absolute;
-    top: 70px;
-    left: 400px;
-    height: 300px;
-    width: 600px;
+    height: 50%;
+    width: 100%;
     border: 2px solid black;
 }
 
 .itemImgDiv {
-    position: absolute;
-    top: 390px;
-    left: 682px;
-
+    
+    margin-left: 47%;
     height: 48px;
     width: 48px;
     border-radius: 10px;
     background-image: radial-gradient(circle, #2F95DA, #3E515D);
     
 }
-
-.emailForm {
-    position: absolute;
-    top: 120px;
-    right: 40px;
-
+.itemDivContainer {
+    padding-top: 5%;
+    width: 100%;
+    float: left;
 }
+
+.mainDiv {
+    height: 100%;
+    overflow: hidden;
+}
+/*
+#leftDiv.mainDiv {
+    background-color: beige;
+}
+#midDiv.mainDiv {
+    background-color: cyan;
+}
+#rightDiv.mainDiv {
+    background-color: red;
+}*/
