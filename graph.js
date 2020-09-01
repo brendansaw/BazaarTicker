@@ -2,8 +2,6 @@ buyData = [];
 sellData = [];
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 graph = document.createElement('canvas');
-graph.width = 600;
-graph.height = 300;
 var ctx = graph.getContext('2d');
 container = document.getElementById('graphDiv');
 
