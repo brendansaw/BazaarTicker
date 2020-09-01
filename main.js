@@ -1,4 +1,34 @@
 // main.js
+checkSize();
+$(window).resize(function() {
+    
+    checkSize();
+    
+})
+
+function checkSize() {
+    mainDiv = document.getElementsByClassName("mainDiv");
+
+    if (window.innerWidth <= 1300) {
+        for (i = 0; i < mainDiv.length; i++) {
+            mainDiv[i].style.float = "none";
+            mainDiv[i].style.width = "100%";
+            mainDiv[i].style.textAlign = "left";
+            mainDiv[i].style.padding = "10px 10px 10px 10px"
+        }
+    }
+    else {
+        for (i = 0; i < mainDiv.length; i++) {
+            mainDiv[i].style.float = "left";
+            mainDiv[i].style.textAlign = "left";
+            mainDiv[i].style.padding = "10px 10px 10px 10px"
+        }
+        mainDiv[0].style.width = "25%";
+        mainDiv[1].style.width = "50%";
+        mainDiv[2].style.width = "25%";
+        mainDiv[2].style.textAlign = "right";
+    }
+}
 
 var inputBox = document.getElementById('searchInput');
 
@@ -172,7 +202,6 @@ $.ajax({
     url: "formtoJSON.php",
     data: {},
     success: function() {
-
         console.log("bruh");
     }
 });

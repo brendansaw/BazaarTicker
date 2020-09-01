@@ -29,72 +29,77 @@
                 </div>
         </nav>
 
-        <div class="itemImgDiv" id="itemImgId"></div>
+        <div class="mainDiv" id="leftDiv">
+            <div class="searchInterfaceDiv" id="searchInterface">
+                <form>
+                    <p><b>Enchanted Status Item Filter:</b></p>
+                    <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
+                    <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
+                    <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
+                </form><br>
+                <p><b>Search for an item:</b></p>
+                <input type="text" name="fname" class="searchInput" id="searchInput">
+        
+                <br>
+                <div class="sortedInterfaceDiv" id="sortedInterface"></div>
+            </div>
+        </div>
 
-
-        <div class="searchInterfaceDiv" id="searchInterface">
-            <form>
-                <p><b>Enchanted Status Item Filter:</b></p>
-                <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
-                <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
-                <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
-            </form><br>
-            <p><b>Search for an item:</b></p>
-            <input type="text" name="fname" class="searchInput" id="searchInput">
-    
-            <br>
-            <div class="sortedInterfaceDiv" id="sortedInterface"></div>
-        </div> 
-
-        <div class="priceBuyTablePos">
-            <table style="width:100%" id="priceBuyTable" class="table">
-                <thead>
-                    <caption id="itemBuyCaption" class="itemBuyCaptionClass" style="text-align: right; margin-right: 25px">Buy Orders</caption>
+        <div class="mainDiv" id="midDiv">
+            <div class="graphDisplay" id="graphDiv"></div>
+            <div class="itemDivContainer">
+                <div class="itemImgDiv" id="itemImgId"></div>
+            </div>
+            <div class="priceBuyTablePos">
+                <table style="width:100%" id="priceBuyTable" class="table">
+                    <thead>
+                        <caption id="itemBuyCaption" class="itemBuyCaptionClass" style="text-align: right; margin-right: 25px">Buy Orders</caption>
+                        <tr>
+                            <th>Orders</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="buyBody_id" class ="buyBody_class">  
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="priceSellTablePos">
+                <table style="width:100%" id="priceSellTable" class="table">
+                    <caption id="itemSellCaption" class="itemSellCaptionClass" style="text-align: left; margin-left: 25px">Sell Orders</caption>
                     <tr>
-                        <th>Orders</th>
-                        <th>Quantity</th>
                         <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Orders</th>
                     </tr>
-                </thead>
-                <tbody id="buyBody_id" class ="buyBody_class">  
-                </tbody>
-            </table>
+                    <tbody id="sellBody_id" class ="sellBody_class">
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
-        
-        <div class="priceSellTablePos">
-            <table style="width:100%" id="priceSellTable" class="table">
-                <caption id="itemSellCaption" class="itemSellCaptionClass" style="text-align: left; margin-left: 25px">Sell Orders</caption>
-                <tr>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Orders</th>
-                </tr>
-                <tbody id="sellBody_id" class ="sellBody_class">
-                </tbody>
-            </table>
-        </div>
-
-        <div class="emailForm">
-            <form name="Data Form" onsubmit="return false">
-                <label for="uemail">Email</label><br>
-                <input type="email" id="uemail" name="uemail" autocomplete="on" size="30"><br><br>
-                <label for="formItem">Selected Item</label><br>
-                <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
-                <br> 
-                <input type="radio" id="Buy" name ="buyorsell" value="Buy">
-                <label for="Buy">Buy</label><br>
-                <input type="radio" id="Sell" name="buyorsell" value="Sell">
-                <label for="Sell">Sell</label><br><br>
-                <label for="price">Price</label><br>
-                <input type="text" id="priceReq" name="priceReq" size="30" value=""><br><br>
-                <button id="dataButton" onclick="sendMail()">Add Request</button>
-                <input type="reset">
-                
-            </form>
+        <div class="mainDiv" id="rightDiv">
+            <div class="emailForm">
+                <form name="Data Form" onsubmit="return false">
+                    <label for="uemail">Email</label><br>
+                    <input type="email" id="uemail" name="uemail" autocomplete="on" size="30"><br><br>
+                    <label for="formItem">Selected Item</label><br>
+                    <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
+                    <br> 
+                    <input type="radio" id="Buy" name ="buyorsell" value="Buy">
+                    <label for="Buy">Buy</label><br>
+                    <input type="radio" id="Sell" name="buyorsell" value="Sell">
+                    <label for="Sell">Sell</label><br><br>
+                    <label for="price">Price</label><br>
+                    <input type="text" id="priceReq" name="priceReq" size="30" value=""><br><br>
+                    <button id="dataButton" onclick="sendMail()">Add Request</button>
+                    <input type="reset">
+                    
+                </form>
+            </div>
         </div>
 
-        
-        <div class="graphDisplay" id="graphDiv"></div>
         <script src="graph.js"></script>
         <script src="main.js"></script>
         <script src="email.js"></script>
