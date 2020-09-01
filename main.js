@@ -9,7 +9,7 @@ $(window).resize(function() {
 function checkSize() {
     mainDiv = document.getElementsByClassName("mainDiv");
 
-    if (window.innerWidth <= 1300) {
+    if (window.innerWidth <= 1350) {
         for (i = 0; i < mainDiv.length; i++) {
             mainDiv[i].style.float = "none";
             mainDiv[i].style.width = "100%";
@@ -24,8 +24,8 @@ function checkSize() {
             mainDiv[i].style.padding = "10px 10px 10px 10px"
         }
         mainDiv[0].style.width = "25%";
-        mainDiv[1].style.width = "50%";
-        mainDiv[2].style.width = "25%";
+        mainDiv[1].style.width = "55%";
+        mainDiv[2].style.width = "20%";
         mainDiv[2].style.textAlign = "right";
     }
 }
