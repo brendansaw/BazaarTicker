@@ -2,7 +2,6 @@
     $TBL_NAMES = array("bazaarsecond2", "bazaarminute", "bazaarhour");
     $tbl = $_REQUEST['time'];
 
-
     if ($tbl != null and $tbl < count($TBL_NAMES)){
         $mysqli = new mysqli('localhost:3306', 'root', 'root', 'test');
         if ($mysqli->connect_error){

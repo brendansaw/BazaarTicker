@@ -7,7 +7,6 @@ set_time_limit(200);
 //-------GLOBAL VARIABLES--------
 // old and new timestamps for comparing if minutes/hours have passed
 $OLD_TIME_ST = array(0,0,0);
-$NEW_TIME_ST = array(0,0,0);
 
 // table names for seconds, minutes, hours data
 // MUST arrange in increasing time intervals
@@ -21,19 +20,19 @@ function updateDB($sqlHandler){
 	updates server database with hypixel stuff.
 	*/
 
-	//accessing global variables (old and new timestamps)
+	//accessing global variables (old timestamps)
 	global $OLD_TIME_ST;
 	global $TBL_NAMES;
 
-	// getting current data
+	// getting current date, buy sell
 	$timestr = gmdate("His", time());
-	
 	$buysell = getHypixData();
 	$buystr = $buysell[0];
 	$sellstr = $buysell[1];
 	
 	
 	// keeping rowcount in seconds 20
+	// TODO keep rowcounts certain length for other rows
 	while (getNumRows($sqlHandler, "bazaarsecond2") > 20){
 		$deltime = getRow($sqlHandler, "bazaarsecond2", 0)[0];
 		delRow($sqlHandler, "bazaarsecond2", $deltime);
