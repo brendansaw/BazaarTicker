@@ -7,7 +7,7 @@ sendMail()r
 */
 
     $jsonString = file_get_contents('emailList.json');
-    $data = json_decode($jsonString);
+    $data = json_decode($jsonString, true);
     echo("poop");
 
     $data['Mailer1']['buy']['EMERALD'] = 10000;

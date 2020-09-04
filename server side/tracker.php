@@ -2,7 +2,7 @@
 
 <?php
 
-set_time_limit(200);
+set_time_limit(20000000);
 
 //-------GLOBAL VARIABLES--------
 // old and new timestamps for comparing if minutes/hours have passed
@@ -10,7 +10,7 @@ $OLD_TIME_ST = array(0,0,0);
 
 // table names for seconds, minutes, hours data
 // MUST arrange in increasing time intervals
-$TBL_NAMES = array("bazaarsecond2", "bazaarminute", "bazaarhour");
+$TBL_NAMES = array("bazaarsec", "bazaarminute", "bazaarhour");
 
 
 
@@ -33,13 +33,13 @@ function updateDB($sqlHandler){
 	
 	// keeping rowcount in seconds 20
 	// TODO keep rowcounts certain length for other rows
-	while (getNumRows($sqlHandler, "bazaarsecond2") > 20){
-		$deltime = getRow($sqlHandler, "bazaarsecond2", 0)[0];
-		delRow($sqlHandler, "bazaarsecond2", $deltime);
+	while (getNumRows($sqlHandler, "bazaarsec") > 20){
+		$deltime = getRow($sqlHandler, "bazaarsec", 0)[0];
+		delRow($sqlHandler, "bazaarsec", $deltime);
 	}
 	
 	// adding data to seconds database
-	addDataToDB($sqlHandler, "bazaarsecond2", $timestr, $buystr, $sellstr);
+	addDataToDB($sqlHandler, "bazaarsec", $timestr, $buystr, $sellstr);
 	
 	// collecting averages into minutes and hour table by checking timestamps
 
@@ -56,9 +56,9 @@ function updateDB($sqlHandler){
 			$oldrow = getRowTS($sqlHandler, $tbl, $OLD_TIME_ST[$i]);
 			
 			// comparing timestamps for minutely hourly
-			// use formula: timestamp index to compare = length of timestamp - 2*(i+1)
+			// use formula: timestamp index to compare = length of timestamp - 2*(i+1) - 1
 			//TODO check if this works
-			if (checkInterval($oldrow[0], $newrow[0], strlen($oldrow[0]) - 2*($i+1))){
+			if (checkInterval($oldrow[0], $newrow[0], strlen($oldrow[0]) - 2*($i+1) - 1)){
 				$avg = getAverage($sqlHandler, $tbl, $OLD_TIME_ST[$i], $newrow[0]);
 				$processed = arrayToJSON($avg[0], $avg[1]);
 	
@@ -296,15 +296,11 @@ else{
 	echo 'connected succ';
 }
 
-/*
+
 while(true){
 	updateDB($mysqli);
-	sleep(10);
-}*/
-
-$d = getAverage($mysqli, "bazaarsecond2", "044017", "045657");
-print_r($d);
-
+	sleep(5);
+}
 $mysqli -> close();
 
 ?>

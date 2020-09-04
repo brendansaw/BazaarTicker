@@ -1,5 +1,5 @@
 <?php
-    $TBL_NAMES = array("bazaarsecond2", "bazaarminute", "bazaarhour");
+    $TBL_NAMES = array("bazaarsec", "bazaarminute", "bazaarhour");
     $tbl = $_REQUEST['time'];
 
     if ($tbl != null and $tbl < count($TBL_NAMES)){
