@@ -61,7 +61,7 @@ $.getJSON(bazaarLink, function(data) {
     for (item in products) {
         itemList.push(products[item].quick_status.productId);
         itemBuyPrice.push(products[item].quick_status.buyPrice);
-        itemSellPrice.push(products[item].quick_status.sellPrice);
+        itemSellPrice.push(products[item].quick_status.sellPrice);  
     }
 
   
@@ -70,30 +70,33 @@ $.getJSON(bazaarLink, function(data) {
         
         searchArray = [];
         searchArrayIndex = [];
-        if (inputBox.value.length > 0) {
-            for (item in itemList) {
-                if (itemList[item].includes(inputBox.value.toUpperCase())) {
-                    if (enchantStatus == "all") {
-                        searchArray.push(itemList[item]);
-                        searchArrayIndex.push(item);
-                    }
-                    else if (enchantStatus == "enchanted") {
-                        if (itemList[item].includes("ENCHANTED")) {
+        $.getJSON('./itemDictionary.json', function(dictDataTemp) {
+            if (inputBox.value.length > 0) { 
+                for (item in itemList) {
+                    if ((dictDataTemp[itemList[item]].toUpperCase()).includes(inputBox.value.toUpperCase())) {
+                        if (enchantStatus == "all") {
                             searchArray.push(itemList[item]);
                             searchArrayIndex.push(item);
                         }
-                    }
-                    else if (enchantStatus == "unenchanted") {
-                        if (!itemList[item].includes("ENCHANTED")) {
-                            searchArray.push(itemList[item]);
-                            searchArrayIndex.push(item);
+                        else if (enchantStatus == "enchanted") {
+                            if (itemList[item].includes("ENCHANTED")) {
+                                searchArray.push(itemList[item]);
+                                searchArrayIndex.push(item);
+                            }
                         }
-                    }
+                        else if (enchantStatus == "unenchanted") {
+                            if (!itemList[item].includes("ENCHANTED")) {
+                                searchArray.push(itemList[item]);
+                                searchArrayIndex.push(item);
+                            }
+                        }
 
+                    }
                 }
+            
             }
-        }
-        printButtonsToSite(searchArray, searchArrayIndex);
+            printButtonsToSite(searchArray, searchArrayIndex);
+        })
     }
 });
 
