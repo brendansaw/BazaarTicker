@@ -46,7 +46,17 @@
         </div>
 
         <div class="mainDiv" id="midDiv">
-            <div class="graphDisplay" id="graphDiv"></div>
+
+            <div class = "buttonPanel">
+
+                <form>
+                    <input type="radio" name="timeIntervalSelect" value=0 checked="checked" onclick="changeGraphInterval(value)">Seconds</input>
+                    <input type="radio" name="timeIntervalSelect" value=1 onclick="changeGraphInterval(value)">Minutes</input>
+                    <input type="radio" name="timeIntervalSelect" value=2 onclick="changeGraphInterval(value)">Hours</input>
+                </form>
+            </div>
+            <div class="graphDisplay" id="graphDiv">
+            </div>
             <div class="itemDivContainer">
                 <div class="itemImgDiv" id="itemImgId"></div>
             </div>
@@ -99,7 +109,8 @@
                 </form>
             </div>
         </div>
-
+        
+        <script src="jquery-3.5.1.js"></script>
         <script src="graph.js"></script>
         <script src="main.js"></script>
         <script src="email.js"></script>

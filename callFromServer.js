@@ -1,15 +1,22 @@
 
-time = 0;
+function getServerDat(time){
+    /*
+    gets item buy, sell, and timestamp data from table corresponding to time interval from database.
+    
+    time represents the time interval to choose from. 
+    time must be an int between 0 and number of time interval tables - 1
+    e.x 0 = seconds, 1 = minutes, 2 = hours etc...
+    */
 
-timestamps = [];
-buydat = [];
-selldat = [];
+    timestamps = [];
+    buydat = [];
+    selldat = [];
+    time = 0;
 
-function updateFun(){
     $.ajax({
         type: "GET",
         // url = server url/php file
-        url: 'server%20side/getDataFromServer.php?time=' + (time % 2),
+        url: 'server%20side/getDataFromServer.php?time=' + (time),
         data: "",
         success: function(response)
         {
@@ -24,5 +31,6 @@ function updateFun(){
             }
         }
     });
-    time += 1;
+
+    return [timestamps, buydat, selldat];
 }

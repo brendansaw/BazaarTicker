@@ -1,7 +1,8 @@
+// global variables
+
 // main.js
 checkSize();
 $(window).resize(function() {
-    
     checkSize();
     
 })
@@ -173,8 +174,8 @@ function printButtonsToSite(arr, arrIndex) {
         button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
+            // update graph parameters
             selectedIndex = button.value;
-
 
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
@@ -184,16 +185,34 @@ function printButtonsToSite(arr, arrIndex) {
             getItemImage(button.id);
             updateFormItem(button.id);
 
-            while (buyData.length > 0) {
-                buyData.pop();
-                sellData.pop();
-                itemStatGraph.data.labels.pop();
-            }
+            // update graph
+            setGraphData(getSelTimeInterval());
         })
 
         var br = document.createElement("br");
         container.appendChild(br);
     }
+}
+
+function getSelTimeInterval(){
+    /**
+     * gets the selected time interval radio button, return value as int.
+     */
+
+    var radios = document.getElementsByName('timeIntervalSelect');
+
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            return radios[i].value;
+        }
+    }
+}
+
+function changeGraphInterval(value){
+    /**
+     * onclick for when a timeinterval radio button is clicked. Reloads graph
+     */
+    setGraphData(value);
 }
 
 
