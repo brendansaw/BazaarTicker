@@ -101,7 +101,7 @@ function sendMail() {
     Email.send({
         Host: "smtp.gmail.com",
         Username: "bazaarticker@gmail.com",
-        Password: "o*L7GJ08MmrXO7MT",
+        Password: "",
         To : uemail.value,
         From: "bazaarticker@gmail.com",
         Subject: "BazaarTracker Data",
