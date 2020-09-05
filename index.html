@@ -75,19 +75,32 @@
         </div>
 
         <div class="emailForm">
-            <form name="Data Form" onsubmit="return false">
+            <form name="Data_Form" action="">
+
                 <label for="uemail">Email</label><br>
-                <input type="email" id="uemail" name="uemail" autocomplete="on" size="30"><br><br>
+                <input type="email" class="uemail-class" id="uemail" name="uemail" autocomplete="on" size="30" value=""><br>
+                <label class="error" for="uemail" id="uemail_error">Please enter a valid E-mail</label>
+                <br><br>
+
                 <label for="formItem">Selected Item</label><br>
                 <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
-                <br> 
+                <label class="error" for="formItem" id="formItem_error">Select an item by searching</label>
+                <br><br>
+
                 <input type="radio" id="Buy" name ="buyorsell" value="Buy">
                 <label for="Buy">Buy</label><br>
                 <input type="radio" id="Sell" name="buyorsell" value="Sell">
-                <label for="Sell">Sell</label><br><br>
-                <label for="price">Price</label><br>
-                <input type="text" id="priceReq" name="priceReq" size="30" value=""><br><br>
-                <button id="dataButton" onclick="sendMail()">Add Request</button>
+                <label for="Sell">Sell</label><br>
+                <label class="error" for="buyorsell" id="buyorsell_error">Select an option</label>
+                <br><br>
+
+                <label for="priceReq">Price</label><br>
+                <input type="number" id="priceReq" name="priceReq" size="30" value="" min="0"><br>
+                <label class="error" for="priceReq" id="priceReq_error">Please specify a price</label>
+
+                <br><br>
+
+                <input type="submit" name="submit" id="dataButton" class="dataButtonClass" value="Add Request">
                 <input type="reset">
                 
             </form>

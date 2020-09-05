@@ -8,7 +8,12 @@
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9000
+            "port": 9000,
+            "log": true,
+            "pathMappings": {
+                "/app/public": "${workspaceFolder}",     
+                "localSourceRoot": "http://localhost/"
+            }
         },
         {
             "name": "Launch currently open script",

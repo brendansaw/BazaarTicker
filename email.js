@@ -1,3 +1,87 @@
+$(function() {
+    $('.error').hide();
+    $(".dataButtonClass").click(function() {
+
+        $('.error').hide();
+        var error = 0;
+            var uemail = escape_html($("input#uemail").val());
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!(uemail.match(mailformat))) {
+                $("label#uemail_error").show();
+                $("input#uemail").focus();
+                ++error;    
+            }
+            
+            var formItem = $("input#formItem").val();
+            if (formItem == "") {
+                $("label#formItem_error").show();
+                $("input#formItem").focus();
+                ++error;
+            }
+            var bors = document.getElementsByName("buyorsell");
+            if (bors[0].checked == false && bors[1].checked == false) {
+                $("label#buyorsell_error").show();
+                $("input#buyorsell").focus();
+                ++error;
+            }
+            var priceReq = $("input#priceReq").val();
+            invalidPrice = document.getElementsByName("priceReq");
+            if (priceReq == "") {
+                invalidPrice.innerHTML == "Please specify a price"
+                $("label#priceReq_error").show();
+                $("input#priceReq").focus();
+                ++error;
+            } 
+            else if (priceReq < 0) {
+                $("label#priceReq_error").show();
+                $("input#priceReq").focus();
+                ++error;
+            }
+
+        if (error > 0) {
+            return false;
+        }
+        else {
+            formData = {
+                'email' : $('input[name=uemail]').val(),
+                'item' : $('input[name=formItem]').val(),
+                'buyorsell' : $('input[name=buyorsell]').val(),
+                'price' : $('input[name=priceReq]').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'formtoJSON.php',
+                data: formData,
+                dataType: 'json',
+                encode: true
+            })
+                console.log(data);
+
+            
+
+            return false;
+        }
+    });
+  });
+
+function escape_html(str) {
+  
+    if ((str===null) || (str===''))
+          return false;
+    else
+      str = str.toString();
+     
+    var map = {
+       '&': '&amp;',
+       '<': '&lt;',
+       '>': '&gt;',
+       '"': '&quot;',
+       "'": '&#039;'
+    };
+    return str.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
 function sendMail() {
 
     buy00 = document.getElementById("buy00");

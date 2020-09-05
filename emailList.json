@@ -1,1 +1,1 @@
-{"Mailer1":{"buy":{"EMERALD":500,"IRON":600},"sell":{"DIAMOND":600}},"Mailer2":{"buy":{"EMERALD":400,"IRON":700},"sell":{"DIAMOND":800}}}
+[{"email":"0@email.com","buy":[{"item":"EMERALD","price":10000},{"item":"IRON","price":10000}],"sell":[{"item":"DIAMOND","price":10000}]},{"email":"1@email.com","buy":[{"item":"EMERALD","price":1000},{"item":"IRON","price":1000}],"sell":[{"item":"DIAMOND","price":1000}]}]

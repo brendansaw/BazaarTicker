@@ -1,11 +1,22 @@
 <?php
 
+    echo $_POST['formItem'];
+    echo $_POST['uemail'];
+    echo $_POST['buyorsell'];
+    echo $_POST['priceReq'];
+
 
     $jsonString = file_get_contents('emailList.json');
-    $data = json_decode($jsonString);
-    echo("poop");
+    $data = json_decode($jsonString, true);
+    
 
-    $data['Mailer1']['buy']['EMERALD'] = 10000;
+    $bruh = count($data);
+    echo($bruh);
+
+    
+
+
+
 
     $newJson = json_encode($data); 
     file_put_contents('emailList.json', $newJson);
