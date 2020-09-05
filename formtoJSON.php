@@ -1,6 +1,6 @@
 <?php
 
-    echo $_POST['formItem'];
+    echo $_POST['item'];
     echo $_POST['uemail'];
     echo $_POST['buyorsell'];
     echo $_POST['priceReq'];

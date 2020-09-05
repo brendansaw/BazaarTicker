@@ -4,9 +4,11 @@ $(function() {
 
         $('.error').hide();
         var error = 0;
-            var uemail = escape_html($("input#uemail").val());
+            var uemail = $("input#uemail").val();  
+            uemail = escape_html(uemail);
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if (!(uemail.match(mailformat))) {
+            var test_1 = uemail.match(mailformat);
+            if (!test_1) {
                 $("label#uemail_error").show();
                 $("input#uemail").focus();
                 ++error;    
@@ -42,35 +44,38 @@ $(function() {
             return false;
         }
         else {
-            formData = {
-                'email' : $('input[name=uemail]').val(),
-                'item' : $('input[name=formItem]').val(),
-                'buyorsell' : $('input[name=buyorsell]').val(),
-                'price' : $('input[name=priceReq]').val()
+            radio = document.getElementsByName("buyorsell");
+            bruh = ""
+            for (i = 0; i < radio.length; ++i) {
+                if(radio[i].checked) {
+                    bruh = radio[i].value;
+                }
+            }
+            var formData = {
+                'email' : $('input#uemail').val(),
+                'item' : $('input#formItem').val(),
+                'buyorsell' : bruh,
+                'price' : $('input#priceReq').val()
             };
 
             $.ajax({
                 type: 'POST',
                 url: 'formtoJSON.php',
                 data: formData,
-                dataType: 'json',
-                encode: true
+                dataType: 'json'
+                 
             })
-                console.log(data);
-
             
-
             return false;
         }
     });
-  });
+});
+
+   
 
 function escape_html(str) {
   
-    if ((str===null) || (str===''))
-          return false;
-    else
-      str = str.toString();
+    str = str.toString();
      
     var map = {
        '&': '&amp;',
