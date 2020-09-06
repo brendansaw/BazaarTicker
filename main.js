@@ -197,6 +197,7 @@ function printButtonsToSite(arr, arrIndex) {
     }
 }
 
+
 function getSelTimeInterval(){
     /**
      * gets the selected time interval radio button, return value as int.
@@ -219,11 +220,4 @@ function changeGraphInterval(value){
 }
 
 
-$.ajax({
-    type: 'POST',
-    url: "formtoJSON.php",
-    data: {},
-    success: function() {
-        console.log("bruh");
-    }
-});
+
