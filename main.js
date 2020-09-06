@@ -1,4 +1,35 @@
+// global variables
+
 // main.js
+checkSize();
+$(window).resize(function() {
+    checkSize();
+    
+})
+
+function checkSize() {
+    mainDiv = document.getElementsByClassName("mainDiv");
+
+    if (window.innerWidth <= 1350) {
+        for (i = 0; i < mainDiv.length; i++) {
+            mainDiv[i].style.float = "none";
+            mainDiv[i].style.width = "100%";
+            mainDiv[i].style.textAlign = "left";
+            mainDiv[i].style.padding = "10px 10px 10px 10px"
+        }
+    }
+    else {
+        for (i = 0; i < mainDiv.length; i++) {
+            mainDiv[i].style.float = "left";
+            mainDiv[i].style.textAlign = "left";
+            mainDiv[i].style.padding = "10px 10px 10px 10px"
+        }
+        mainDiv[0].style.width = "25%";
+        mainDiv[1].style.width = "55%";
+        mainDiv[2].style.width = "20%";
+        mainDiv[2].style.textAlign = "right";
+    }
+}
 
 var inputBox = document.getElementById('searchInput');
 
@@ -30,7 +61,7 @@ $.getJSON(bazaarLink, function(data) {
     for (item in products) {
         itemList.push(products[item].quick_status.productId);
         itemBuyPrice.push(products[item].quick_status.buyPrice);
-        itemSellPrice.push(products[item].quick_status.sellPrice);
+        itemSellPrice.push(products[item].quick_status.sellPrice);  
     }
 
   
@@ -39,30 +70,33 @@ $.getJSON(bazaarLink, function(data) {
         
         searchArray = [];
         searchArrayIndex = [];
-        if (inputBox.value.length > 0) {
-            for (item in itemList) {
-                if (itemList[item].includes(inputBox.value.toUpperCase())) {
-                    if (enchantStatus == "all") {
-                        searchArray.push(itemList[item]);
-                        searchArrayIndex.push(item);
-                    }
-                    else if (enchantStatus == "enchanted") {
-                        if (itemList[item].includes("ENCHANTED")) {
+        $.getJSON('./itemDictionary.json', function(dictDataTemp) {
+            if (inputBox.value.length > 0) { 
+                for (item in itemList) {
+                    if ((dictDataTemp[itemList[item]].toUpperCase()).includes(inputBox.value.toUpperCase())) {
+                        if (enchantStatus == "all") {
                             searchArray.push(itemList[item]);
                             searchArrayIndex.push(item);
                         }
-                    }
-                    else if (enchantStatus == "unenchanted") {
-                        if (!itemList[item].includes("ENCHANTED")) {
-                            searchArray.push(itemList[item]);
-                            searchArrayIndex.push(item);
+                        else if (enchantStatus == "enchanted") {
+                            if (itemList[item].includes("ENCHANTED")) {
+                                searchArray.push(itemList[item]);
+                                searchArrayIndex.push(item);
+                            }
                         }
-                    }
+                        else if (enchantStatus == "unenchanted") {
+                            if (!itemList[item].includes("ENCHANTED")) {
+                                searchArray.push(itemList[item]);
+                                searchArrayIndex.push(item);
+                            }
+                        }
 
+                    }
                 }
+            
             }
-        }
-        printButtonsToSite(searchArray, searchArrayIndex);
+            printButtonsToSite(searchArray, searchArrayIndex);
+        })
     }
 });
 
@@ -143,8 +177,8 @@ function printButtonsToSite(arr, arrIndex) {
         button.value = arrIndex[i];
         container.appendChild(button);
         button.addEventListener("click", function() {
+            // update graph parameters
             selectedIndex = button.value;
-
 
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
@@ -154,11 +188,8 @@ function printButtonsToSite(arr, arrIndex) {
             getItemImage(button.id);
             updateFormItem(button.id);
 
-            while (buyData.length > 0) {
-                buyData.pop();
-                sellData.pop();
-                itemStatGraph.data.labels.pop();
-            }
+            // update graph
+            setGraphData(getSelTimeInterval());
         })
 
         var br = document.createElement("br");
@@ -166,13 +197,27 @@ function printButtonsToSite(arr, arrIndex) {
     }
 }
 
-function updateForm() {
-    $.ajax({
-        type: 'POST',
-        url: "formtoJSON.php",
-        data: {},
-        success: function() {
-            alert("bruh");
+
+function getSelTimeInterval(){
+    /**
+     * gets the selected time interval radio button, return value as int.
+     */
+
+    var radios = document.getElementsByName('timeIntervalSelect');
+
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            return radios[i].value;
         }
-    });
+    }
 }
+
+function changeGraphInterval(value){
+    /**
+     * onclick for when a timeinterval radio button is clicked. Reloads graph
+     */
+    setGraphData(value);
+}
+
+
+
