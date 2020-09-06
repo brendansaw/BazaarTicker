@@ -1,5 +1,43 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+
+$mail = new PHPMailer();
+$mail->IsSMTP();
+$mail->Mailer = "smtp";
+
+$mail->SMTPDebug  = 1;  
+$mail->SMTPAuth   = TRUE;
+$mail->SMTPSecure = "tls";
+$mail->Port       = 587;
+$mail->Host       = "smtp.gmail.com";
+$mail->Username   = "bazaarticker@gmail.com";
+$mail->Password   = "";
+
+
+
+function sendEmail($emailAddress, $item, $buyorsell, $price, $mail) {
+    $mail->IsHTML(true);
+    $mail->AddAddress($emailAddress, "User");
+    $mail->SetFrom("bazaarticker@gmail.com", "Bazaar Ticker");
+    $mail->Subject = "Bazaar Ticker Request";
+    $buyorsell = strtolower($buyorsell);
+    $content = "<p>Hello Bazaar Ticker user, <br> <br> You are receiving this email because the item that you are tracking: <b>$item </b>has obtained a <b>$buyorsell </b>price of<b> $price</b> coins per item in Hypixel’s Skyblock Bazaar market. <br> <br>Thank you for using Bazaar Ticker’s services.<br>bazaarticker.tk</p>";
+    
+    $mail->MsgHTML($content); 
+    if(!$mail->Send()) {
+    echo "Error while sending Email.";
+    var_dump($mail);
+    } else {
+    echo "Email sent successfully";
+    }
+}
+
+
 $mysqli = new mysqli('localhost:3307', 'root', 'root', 'test');
 if ($mysqli->connect_error){
     //echo "server died";
@@ -24,10 +62,8 @@ function countNumberofEmails($sqlHandler) {
     return -1;
 }
 
-function sendEmail($emailAddress, $item, $buyorsell, $price) {
-    echo "For " . $emailAddress . " with item " . $item . $price . $buyorsell . ", sent email. ";
-}
 
+ 
 
 for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $products = getHypixData();
@@ -40,11 +76,11 @@ for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $price = $d[3];
     if ($buyorsell == "Buy") {
         if ($price >= $products[$item].buy_summary[0].pricePerUnit) {
-            sendEmail($email, $item, $buyorsell, $price);
+            sendEmail($email, $item, $buyorsell, $price, $mail);
         }
     } else if ($buyorsell == "Sell") {
         if ($price <= $products[$item].sell_summary[0].pricePerUnit) {
-            sendEmail($email, $item, $buyorsell, $price);
+            sendEmail($email, $item, $buyorsell, $price, $mail);
         }
     } else {
         echo "Something is wrong";
