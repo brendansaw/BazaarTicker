@@ -86,3 +86,4 @@ function escape_html(str) {
     return str.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
+
