@@ -13,7 +13,7 @@
         
 
     </head>
-    <body>
+    <body style="background-color:#3d3d42;">
 
         <nav class="navbar navbar-inverse" style="background-color: #3C4145">
             <div class="container-fluid">
@@ -50,9 +50,9 @@
             <div class = "buttonPanel">
 
                 <form>
-                    <input type="radio" name="timeIntervalSelect" value=0 checked="checked" onclick="changeGraphInterval(value)">Seconds</input>
-                    <input type="radio" name="timeIntervalSelect" value=1 onclick="changeGraphInterval(value)">Minutes</input>
-                    <input type="radio" name="timeIntervalSelect" value=2 onclick="changeGraphInterval(value)">Hours</input>
+                    <input type="radio" name="timeIntervalSelect" value=0 checked="checked" onclick="changeGraphInterval(value)"><t style="color:white">Seconds</t></input>
+                    <input type="radio" name="timeIntervalSelect" value=1 onclick="changeGraphInterval(value)"><t style="color:white">Minutes</t></input>
+                    <input type="radio" name="timeIntervalSelect" value=2 onclick="changeGraphInterval(value)"><t style="color:white">Hours</t></input>
                 </form>
             </div>
             <div class="graphDisplay" id="graphDiv">
@@ -63,8 +63,8 @@
             <div class="priceBuyTablePos">
                 <table style="width:100%" id="priceBuyTable" class="table">
                     <thead>
-                        <caption id="itemBuyCaption" class="itemBuyCaptionClass" style="text-align: right; margin-right: 25px">Buy Orders</caption>
-                        <tr>
+                        <caption id="itemBuyCaption" class="itemBuyCaptionClass" style="text-align: right; margin-right: 25px; color: white">Buy Orders</caption>
+                        <tr style="color:white">
                             <th>Orders</th>
                             <th>Quantity</th>
                             <th>Price</th>
@@ -77,11 +77,11 @@
             
             <div class="priceSellTablePos">
                 <table style="width:100%" id="priceSellTable" class="table">
-                    <caption id="itemSellCaption" class="itemSellCaptionClass" style="text-align: left; margin-left: 25px">Sell Orders</caption>
-                    <tr>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Orders</th>
+                    <caption id="itemSellCaption" class="itemSellCaptionClass" style="text-align: left; margin-left: 25px; color: white">Sell Orders</caption>
+                    <tr style="color:white">
+                        <th style="text-align: right">Price</th>
+                        <th style="text-align: right">Quantity</th>
+                        <th style="text-align: right">Orders</th>
                     </tr>
                     <tbody id="sellBody_id" class ="sellBody_class">
                     </tbody>
@@ -96,24 +96,24 @@
             <div class="emailForm">
             <form name="Data_Form" action="">
 
-                <label for="uemail">Email</label><br>
+                <label for="uemail" style="color:white">Email</label><br>
                 <input type="email" class="uemail-class" id="uemail" name="uemail" autocomplete="on" size="30" value=""><br>
                 <label class="error" for="uemail" id="uemail_error">Please enter a valid E-mail</label>
                 <br><br>
 
-                <label for="formItem">Selected Item</label><br>
+                <label for="formItem" style="color:white">Selected Item</label><br>
                 <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
                 <label class="error" for="formItem" id="formItem_error">Select an item by searching</label>
                 <br><br>
 
                 <input type="radio" id="Buy" name ="buyorsell" value="Buy">
-                <label for="Buy">Buy</label><br>
+                <label for="Buy" style="color:white">Buy</label><br>
                 <input type="radio" id="Sell" name="buyorsell" value="Sell">
-                <label for="Sell">Sell</label><br>
+                <label for="Sell" style="color:white">Sell</label><br>
                 <label class="error" for="buyorsell" id="buyorsell_error">Select an option</label>
                 <br><br>
 
-                <label for="priceReq">Price</label><br>
+                <label for="priceReq" style="color:white">Price</label><br>
                 <input type="number" id="priceReq" name="priceReq" size="30" value="" min="0"><br>
                 <label class="error" for="priceReq" id="priceReq_error">Please specify a price</label>
 
