@@ -2,12 +2,11 @@
 
 <?php
 // set max runtime
-set_time_limit(2000);
+set_time_limit(3000);
 
 //-------GLOBAL VARIABLES--------
 // old and new timestamps for comparing if minutes/hours have passed
-// TODO store old timestamps into table
-$OLD_TIME_ST = array(0,0,0);
+$OLD_TIME_ST = json_decode(file_get_contents("old_timestamps.json"), true);
 
 // table names for seconds, minutes, hours data, limit for number of rows
 // MUST arrange in increasing time intervals
@@ -298,11 +297,15 @@ else{
 	echo 'connected succ';
 }
 
-
-while(true){
+$i = 1;
+while($i < 3){
 	updateDB($mysqli);
+	$i++;
 	sleep(5);
 }
+
+// write new timestamps to json file after loop
+file_put_contents("old_timestamps.json", json_encode($OLD_TIME_ST));
 $mysqli -> close();
 
 ?>
