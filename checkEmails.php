@@ -6,6 +6,7 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
+
 $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->Mailer = "smtp";
@@ -16,6 +17,7 @@ $mail->Port       = 587;
 $mail->Host       = "smtp.gmail.com";
 $mail->Username   = "bazaarticker@gmail.com";
 $mail->Password   = "o*L7GJ08MmrXO7MT";
+
 
 
 
@@ -38,7 +40,7 @@ function sendEmail($emailAddress, $item, $buyorsell, $price, $mail, $sqlHandler)
 }
 
 
-$mysqli = new mysqli('localhost:3307', 'root', 'root', 'test');
+$mysqli = new mysqli('localhost:3306', 'root', 'root', 'test');
 if ($mysqli->connect_error){
     //echo "server died";
 }
@@ -80,12 +82,15 @@ for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $item = $d[1];
     $buyorsell = $d[2];
     $price = $d[3];
+    
+
     if ($buyorsell == "Buy") {
-        if ($price >= $products[$item].buy_summary[0].pricePerUnit) {
+        
+        if ($price >= $products[$item][buy_summary][0][pricePerUnit]) {
             sendEmail($email, $item, $buyorsell, $price, $mail, $mysqli);
         }
     } else if ($buyorsell == "Sell") {
-        if ($price <= $products[$item].sell_summary[0].pricePerUnit) {
+        if ($price <= $products[$item][sell_summary][0][pricePerUnit]) {
             sendEmail($email, $item, $buyorsell, $price, $mail, $mysqli);
         }
     } else {

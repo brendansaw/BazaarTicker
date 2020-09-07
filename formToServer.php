@@ -4,7 +4,7 @@ $item = $_POST['item'];
 $buyorsell = $_POST['buyorsell'];
 $priceReq =  $_POST['priceReq'];
 
-$mysqli = new mysqli('localhost:3307', 'root', 'root', 'test');
+$mysqli = new mysqli('localhost:3306', 'root', 'root', 'test');
 if ($mysqli->connect_error){
     //echo "server died";
 }
