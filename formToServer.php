@@ -12,9 +12,10 @@ else{
     //echo 'connected successfully';
 }
 
+$timestr = gmdate("YmdHis", time());
 
 if (countNumberofEmails($mysqli, $uemail)) {
-    $q = "INSERT INTO `emails` (`email`, `item`, `buyorsell`, `price`) VALUES ('" . $uemail . "', '" . $item . "', '" . $buyorsell . "', '" . $priceReq . "')";
+    $q = "INSERT INTO `emails` (`email`, `item`, `buyorsell`, `price`, `timestamp`) VALUES ('$uemail', '$item', '$buyorsell', '$priceReq', '$timestr')";
     if ($result = $mysqli -> query($q)) {
     }
 } 

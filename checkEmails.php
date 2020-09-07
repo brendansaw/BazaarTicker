@@ -75,8 +75,6 @@ function deleteRow ($emailAddress, $item, $buyorsell, $price, $sqlHandler) {
     }
 }
 
- 
-
 for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $products = getHypixData();
     $q = "SELECT * FROM `emails` LIMIT $i,1";
@@ -101,6 +99,9 @@ for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
         echo "Something is wrong";
     }
 }
+
+$k = "DELETE FROM `emails` WHERE `timestamp` < UTC_TIMESTAMP() - INTERVAL 1 WEEK";
+$res2 = $mysqli -> query($k);
 
 $mysqli -> close();
 
