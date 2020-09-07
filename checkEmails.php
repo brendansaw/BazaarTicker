@@ -17,9 +17,13 @@ $mail->Port       = 587;
 $mail->Host       = "smtp.gmail.com";
 $mail->Username   = "bazaarticker@gmail.com";
 $mail->Password   = "o*L7GJ08MmrXO7MT";
-
-
-
+$mail->SMTPOptions = array(
+    'ssl' => array(
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true
+    )
+    );
 
 function sendEmail($emailAddress, $item, $buyorsell, $price, $mail, $sqlHandler) {
     $mail->IsHTML(true);
@@ -97,9 +101,6 @@ for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
         echo "Something is wrong";
     }
 }
-
-
-
 
 $mysqli -> close();
 
