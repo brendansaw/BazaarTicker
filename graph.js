@@ -50,7 +50,7 @@ function getDBDat(time){
     $.ajax({
         type: "GET",
         // url = server url/php file
-        url: 'server%20side/getDataFromServer.php?time=' + (time),
+        url: 'serverside/getDataFromServer.php?time=' + (time),
         data: "",
         success: function(response)
         {
