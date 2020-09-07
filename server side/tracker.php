@@ -1,18 +1,17 @@
 <html>
 
 <?php
-
-set_time_limit(20000000);
+// set max runtime
+set_time_limit(3000);
 
 //-------GLOBAL VARIABLES--------
 // old and new timestamps for comparing if minutes/hours have passed
-$OLD_TIME_ST = array(0,0,0);
+$OLD_TIME_ST = json_decode(file_get_contents("old_timestamps.json"), true);
 
-// table names for seconds, minutes, hours data
+// table names for seconds, minutes, hours data, limit for number of rows
 // MUST arrange in increasing time intervals
 $TBL_NAMES = array("bazaarsec", "bazaarminute", "bazaarhour");
-
-
+$TBL_ROW_LIM = array(20, 80, 30);
 
 //--------FUNCTIONS-------------
 function updateDB($sqlHandler){
@@ -23,6 +22,7 @@ function updateDB($sqlHandler){
 	//accessing global variables (old timestamps)
 	global $OLD_TIME_ST;
 	global $TBL_NAMES;
+	global $TBL_ROW_LIM;
 
 	// getting current date, buy sell
 	$timestr = gmdate("His", time());
@@ -32,11 +32,13 @@ function updateDB($sqlHandler){
 	
 	
 	// keeping rowcount in seconds 20
-	// TODO keep rowcounts certain length for other rows
-	while (getNumRows($sqlHandler, "bazaarsec") > 20){
-		$deltime = getRow($sqlHandler, "bazaarsec", 0)[0];
-		delRow($sqlHandler, "bazaarsec", $deltime);
+	for ($i=0; $i < count($TBL_NAMES); $i++){
+		while (getNumRows($sqlHandler, $TBL_NAMES[$i]) > $TBL_ROW_LIM[$i]){
+			$deltime = getRow($sqlHandler, $TBL_NAMES[$i], 0)[0];
+			delRow($sqlHandler, $TBL_NAMES[$i], $deltime);
+		}
 	}
+
 	
 	// adding data to seconds database
 	addDataToDB($sqlHandler, "bazaarsec", $timestr, $buystr, $sellstr);
@@ -57,7 +59,6 @@ function updateDB($sqlHandler){
 			
 			// comparing timestamps for minutely hourly
 			// use formula: timestamp index to compare = length of timestamp - 2*(i+1) - 1
-			//TODO check if this works
 			if (checkInterval($oldrow[0], $newrow[0], strlen($oldrow[0]) - 2*($i+1) - 1)){
 				$avg = getAverage($sqlHandler, $tbl, $OLD_TIME_ST[$i], $newrow[0]);
 				$processed = arrayToJSON($avg[0], $avg[1]);
@@ -296,11 +297,15 @@ else{
 	echo 'connected succ';
 }
 
-
-while(true){
+$i = 1;
+while($i < 3){
 	updateDB($mysqli);
+	$i++;
 	sleep(5);
 }
+
+// write new timestamps to json file after loop
+file_put_contents("old_timestamps.json", json_encode($OLD_TIME_ST));
 $mysqli -> close();
 
 ?>
