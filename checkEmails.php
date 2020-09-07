@@ -9,18 +9,17 @@ require 'PHPMailer-master/src/SMTP.php';
 $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->Mailer = "smtp";
-
 $mail->SMTPDebug  = 1;  
 $mail->SMTPAuth   = TRUE;
 $mail->SMTPSecure = "tls";
 $mail->Port       = 587;
 $mail->Host       = "smtp.gmail.com";
 $mail->Username   = "bazaarticker@gmail.com";
-$mail->Password   = "";
+$mail->Password   = "o*L7GJ08MmrXO7MT";
 
 
 
-function sendEmail($emailAddress, $item, $buyorsell, $price, $mail) {
+function sendEmail($emailAddress, $item, $buyorsell, $price, $mail, $sqlHandler) {
     $mail->IsHTML(true);
     $mail->AddAddress($emailAddress, "User");
     $mail->SetFrom("bazaarticker@gmail.com", "Bazaar Ticker");
@@ -30,10 +29,11 @@ function sendEmail($emailAddress, $item, $buyorsell, $price, $mail) {
     
     $mail->MsgHTML($content); 
     if(!$mail->Send()) {
-    echo "Error while sending Email.";
-    var_dump($mail);
+        echo "Error while sending Email.";
+        var_dump($mail);
     } else {
-    echo "Email sent successfully";
+        deleteRow($emailAddress, $item, $buyorsell, $price, $sqlHandler);
+        echo "Email sent successfully";
     }
 }
 
@@ -62,12 +62,18 @@ function countNumberofEmails($sqlHandler) {
     return -1;
 }
 
+function deleteRow ($emailAddress, $item, $buyorsell, $price, $sqlHandler) {
+    $q = "DELETE FROM `emails` WHERE `email` = '$emailAddress' AND `item` = '$item' AND `buyorsell` = '$buyorsell' AND `price` = $price";
+    if ($result = $sqlHandler -> query($q)) {
+        echo "Deleted all emails with this ID";
+    }
+}
 
  
 
 for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $products = getHypixData();
-    $q = "SELECT * FROM `emails` LIMIT " . $i . ",1";
+    $q = "SELECT * FROM `emails` LIMIT $i,1";
 	$res = $mysqli -> query($q);
     $d = $res -> fetch_row();
     $email = $d[0];
@@ -76,11 +82,11 @@ for ($i = 0; $i < countNumberofEmails($mysqli); $i++) {
     $price = $d[3];
     if ($buyorsell == "Buy") {
         if ($price >= $products[$item].buy_summary[0].pricePerUnit) {
-            sendEmail($email, $item, $buyorsell, $price, $mail);
+            sendEmail($email, $item, $buyorsell, $price, $mail, $mysqli);
         }
     } else if ($buyorsell == "Sell") {
         if ($price <= $products[$item].sell_summary[0].pricePerUnit) {
-            sendEmail($email, $item, $buyorsell, $price, $mail);
+            sendEmail($email, $item, $buyorsell, $price, $mail, $mysqli);
         }
     } else {
         echo "Something is wrong";
