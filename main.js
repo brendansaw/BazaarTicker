@@ -3,11 +3,12 @@
 // main.js
 checkSize();
 $(window).resize(function() {
+    // calls the adjustment of the divs based on window size
     checkSize();
-    
 })
 
 function checkSize() {
+    // adjusting the size of the divs
     mainDiv = document.getElementsByClassName("mainDiv");
 
     if (window.innerWidth <= 1350) {
@@ -31,8 +32,10 @@ function checkSize() {
     }
 }
 
+// this is the search bar
 var inputBox = document.getElementById('searchInput');
 
+// these are the radio buttons that select for the enchanted status
 selectedIndex = -1;
 enchantStatus = "all";
 function changedEnchanted() {
@@ -48,6 +51,7 @@ function changedEnchanted() {
     $(inputBox).keyup();
 }
 
+// API link
 bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 
 $.getJSON(bazaarLink, function(data) {
@@ -65,36 +69,59 @@ $.getJSON(bazaarLink, function(data) {
     }
 
   
+    // on key up of inputbox, perform search
     output = "";
     inputBox.onkeyup = function() {
         
         searchArray = [];
         searchArrayIndex = [];
+        // using itemDictionary.json to transform the item names from the API into more readable names
         $.getJSON('./itemDictionary.json', function(dictDataTemp) {
             if (inputBox.value.length > 0) { 
                 for (item in itemList) {
-                    if ((dictDataTemp[itemList[item]].toUpperCase()).includes(inputBox.value.toUpperCase())) {
-                        if (enchantStatus == "all") {
-                            searchArray.push(itemList[item]);
-                            searchArrayIndex.push(item);
-                        }
-                        else if (enchantStatus == "enchanted") {
-                            if (itemList[item].includes("ENCHANTED")) {
+                    // checking if the item exists in the item dictionary
+                    if (dictDataTemp.hasOwnProperty(itemList[item])) {
+                        if ((dictDataTemp[itemList[item]].toUpperCase()).includes(inputBox.value.toUpperCase())) {
+                            if (enchantStatus == "all") {
                                 searchArray.push(itemList[item]);
                                 searchArrayIndex.push(item);
                             }
+                            else if (enchantStatus == "enchanted") {
+                                if (itemList[item].includes("ENCHANTED")) {
+                                    searchArray.push(itemList[item]);
+                                    searchArrayIndex.push(item);
+                                }
+                            }
+                            else if (enchantStatus == "unenchanted") {
+                                if (!itemList[item].includes("ENCHANTED")) {
+                                    searchArray.push(itemList[item]);
+                                    searchArrayIndex.push(item);
+                                }
+                            }
                         }
-                        else if (enchantStatus == "unenchanted") {
-                            if (!itemList[item].includes("ENCHANTED")) {
+                    } else {
+                        if (itemList[item].includes(inputBox.value.toUpperCase())) {
+                            if (enchantStatus == "all") {
                                 searchArray.push(itemList[item]);
                                 searchArrayIndex.push(item);
                             }
+                            else if (enchantStatus == "enchanted") {
+                                if (itemList[item].includes("ENCHANTED")) {
+                                    searchArray.push(itemList[item]);
+                                    searchArrayIndex.push(item);
+                                }
+                            }
+                            else if (enchantStatus == "unenchanted") {
+                                if (!itemList[item].includes("ENCHANTED")) {
+                                    searchArray.push(itemList[item]);
+                                    searchArrayIndex.push(item);
+                                }
+                            }
                         }
-
                     }
                 }
-            
             }
+            // print the buttons to the site based on the what values we pushed to the arrays
             printButtonsToSite(searchArray, searchArrayIndex);
         })
     }
@@ -103,6 +130,7 @@ $.getJSON(bazaarLink, function(data) {
 
 
 function getBuySellSummary(itemIndex) {
+    // printing out the buy and sell summaries under the graph
     itemSellSum = [];
     itemBuySum = [];
     
@@ -155,6 +183,7 @@ function getBuySellSummary(itemIndex) {
 }
 
 function getItemImage(imgIndex) {
+    // get the corresponding image to the item
     itemImgStr = imgIndex.replace(":",".");
     document.getElementById("itemImgId").innerHTML +=
        "<img src='itemImages/" + itemImgStr + ".png'>";
@@ -172,7 +201,13 @@ function printButtonsToSite(arr, arrIndex) {
         button.className = "searchButton";
         button.id = arr[i];
         $.getJSON('./itemDictionary.json', function(dictData) {
-            button.innerText = dictData[button.id];
+            // check if the item dictionary has the item
+            if (dictData.hasOwnProperty(button.id)) {
+                button.innerText = dictData[button.id];
+            }
+            else {
+                button.innerText = button.id;
+            }
         })
         button.value = arrIndex[i];
         container.appendChild(button);
