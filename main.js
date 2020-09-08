@@ -1,4 +1,5 @@
-// global variables
+$.ajaxSetup({ cache:false});
+
 
 // main.js
 checkSize();
