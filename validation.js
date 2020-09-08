@@ -59,7 +59,7 @@ $(".dataButtonClass").click(function() {
 
         $.ajax({
             type: 'POST',
-            url: 'formToServer.php',
+            url: 'serverside/formToServer.php',
             data: obj,
             success: function(response)
             {
