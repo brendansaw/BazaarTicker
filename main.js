@@ -186,7 +186,7 @@ function getItemImage(imgIndex) {
     // get the corresponding image to the item
     itemImgStr = imgIndex.replace(":",".");
     document.getElementById("itemImgId").innerHTML +=
-       "<img src='itemImages/" + itemImgStr + ".png'>";
+       "<img class=\"itemimg\" src='itemImages/" + itemImgStr + ".png'>";
 }
 function updateFormItem(itemName) {
     document.getElementById("formItem").value = itemName;
@@ -222,6 +222,9 @@ function printButtonsToSite(arr, arrIndex) {
             getBuySellSummary(button.id);
             getItemImage(button.id);
             updateFormItem(button.id);
+
+            //update header
+            document.getElementById("histHeader").innerHTML = "History for " + "<span class=\"itemHeader\">" + button.innerText + ":</span>";
 
             // update graph
             setGraphData(getSelTimeInterval());

@@ -1,41 +1,193 @@
+body, html{
+    background: hsl(0, 0%, 10%);
+    font-family: 'Raleway', sans-serif;
+    color: hsl(0, 0%, 90%);
+  }
+
+h1, h4 {
+    padding: 8px 4px;
+    border-bottom: 2px solid hsl(0, 0%, 90%);
+  }
+
+.emailXplain {
+    text-align: center;
+    font-style: italic;
+    background-color: rgb(50, 50, 50);
+    word-wrap: break-word;
+    border-radius: 5px;
+    padding: 3% 4% 1% 4%;
+}
+
+  /* ---- search interface ----*/
+@keyframes fadeIn{
+    0% {opacity: 0;}
+    100% {opacity: 100;}
+}
+
+@keyframes fadeIn{
+    0% {opacity: 0;}
+    100% {opacity: 100;}
+}
+
+@keyframes fadeOut{
+    0% {opacity: 100;}
+    100% {opacity: 0;}
+}
+
+@keyFrames stretchSearch{
+    0% {width: 20%;}
+    100% {width: 90%;}
+
+}
+
+@keyFrames hideSearch{
+    0% {width: 90%;}
+    100% {width: 20%;}
+
+}
+
 .searchInterfaceDiv {
     display: inline-block;
-    border: 2px solid black;
-    background-color: lightgray;
-    padding-left: 1%;
-    padding-right: 1%;
+    background-color: hsl(0, 0%, 10%);
+    width:100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
 }
 
 .sortedInterfaceDiv {
     display: inline-block;
-    border: 2px solid black;
     overflow: scroll;
     overflow-x: hidden;
-    width:310px;
+    width:100%;
     height:500px;
-    background-color: white;
+    background-color: hsl(0, 0%, 10%);
 }
 
-div.sortedInterfaceDiv:empty { display: none }
+.searchContainer{
+    background-color: hsl(0, 0%, 10%);
+    padding-bottom: 1%;
+    width: 100%
+}
+
+.searchContainer input[type=text] {
+    width: 20%;
+    height: 30px;
+    background-color: hsl(0, 0%, 10%);
+    border-style: none;
+    border-bottom: 1px solid hsl(0, 0%, 90%);
+}
+
+
+.searchContainer input[type=text]:focus {
+    outline: none !important;
+    animation-name: stretchSearch;
+    animation-duration: 0.5s;
+    width: 90%;
+}
+
+.searchContainer input[type=text]:not(:focus) {
+    outline: none !important;
+    animation-name: hideSearch;
+    animation-duration: 0.35s;
+    
+}
+
+
+div.sortedInterfaceDiv:empty { 
+    display: none;
+}
+
+div.sortedInterfaceDiv:not(:empty) {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}
+
+/* ----- item buttons ------*/
+@keyframes itemHover{
+    0% {background-color: hsl(0, 0%, 10%);
+        color: rgb(194, 194, 194);}
+    
+    100%  {background-color: rgb(194, 194, 194);
+        color: hsl(0, 0%, 10%);}
+}
 
 .searchButton {
-    background-color: white;
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+    background-color: hsl(0, 0%, 10%);
+    padding: 1% 3%;
     border: none;
+    outline: none !important;
+    color: rgb(194, 194, 194);
+    border-radius: 2px;
+    font-size: 12.5pt;
+}
+
+.searchButton:hover{
+    animation-name: itemHover;
+    animation-duration: 0.5s;
+    background-color: rgb(194, 194, 194);
+    color: rgb(50, 50, 50)
+}
+
+
+/* ------- buy sell tables --------*/
+.itemCaptionClass {
+    font-size: 25px;
+    padding-left: 4%;
+    padding-right: 4%;
+    color: hsl(0, 0%, 90%);
+}
+
+#midDiv tbody{
+    border:none;
+}
+
+.columnLabel th{
+    border: none;
+    font-style: italic;
+    font-size: 14pt;
+    font-weight: normal;
+    text-align: center;
+}
+
+#itemBuyCaption {
+    text-align: right;
 }
 
 .priceBuyTablePos {
+    margin-top: 1%;
+    margin-right: 0.5%;
     font-size: 15px;
-    width: 50%;
+    width: 49.5%;
     padding: 10px;
     float: left;
+    border-radius: 5px;
+    background-color: rgb(19, 84, 67);
 }
 
 .priceSellTablePos {
+    margin-top: 1%;
+    margin-left: 0.5%;
     font-size: 15px;
-    width: 50%;
+    width: 49.5%;
     padding: 10px;
     float: left;
-    text-align: right;
+    border-radius: 5px;
+    background-color: rgb(77, 25, 38);
+}
+
+#midDiv td {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    border: none;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    background-color: transparent;
+
+    color: rgb(189, 189, 189);
 }
 
 
@@ -43,20 +195,31 @@ div.sortedInterfaceDiv:empty { display: none }
     height: 50%;
     width: 100%;
     border: 2px solid black;
+    background-color: rgb(50, 50, 50);
+    border-radius: 5px;
+    padding: 2%;
 }
 
 .itemImgDiv {
-    
-    margin-left: 47%;
-    height: 48px;
-    width: 48px;
+    margin: auto;
+    height: 65px;
+    width: 65px;
     border-radius: 10px;
-    background-image: radial-gradient(circle, #2F95DA, #3E515D);
+    background-color: rgb(50, 50, 50);
+    border: 3px solid rgb(52, 138, 155);
     
 }
+.itemimg{
+    margin-top: 5.2px;
+    margin-left: 5.2px;
+}
+
 .itemDivContainer {
-    padding-top: 5%;
-    width: 100%;
+
+    padding-top: 1%;
+    margin-left: 32.5%;
+    margin-right: 32.5%;
+    width: 35%;
     float: left;
 }
 
@@ -65,6 +228,236 @@ div.sortedInterfaceDiv:empty { display: none }
     overflow: hidden;
 }
 
+/* ------ scrollbar -------*/
+ ::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 10%);        /* color of the tracking area */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(0, 0%, 90%);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 4px solid hsl(0, 0%, 10%); /* creates padding around scroll thumb */
+  }
+
+/* ----------- time interval radio buttons ----------- */
+@keyframes buttonFadeIn{
+    0%  {background-color: hsl(0, 0%, 10%);
+        color: hsl(0, 0%, 90%);
+    }
+    100%  {background-color: hsl(0, 0%, 90%);
+            color: hsl(0, 0%, 10%)
+    }
+}
+
+.buttonPanel{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 7px;
+}
+
+.buttonPanel input[type=radio]{
+    opacity: 0;
+    width: 0;
+    position: fixed;
+    
+}
+
+.buttonPanel input[type="radio"]:checked + label {
+    animation-name: buttonFadeIn;
+    animation-duration: 0.5s;
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(0, 0%, 10%);
+}
+
+.buttonPanel label{
+    width: 32.5%;
+    padding: 10px 20px;
+    text-align: center;
+    border: 2px solid hsl(0, 0%, 90%);
+    border-radius: 5px;
+}
+
+
+/*------- enchanted filter radio buttons ------ */
+.filterPanel{
+    margin: auto;
+    width: 100%;
+    padding: 2%;
+}
+
+.filterPanel input[type=radio]{
+    opacity: 0;
+    width: 0;
+    position: fixed;
+    
+}
+
+.filterPanel input[type="radio"]:checked + label {
+    animation-name: buttonFadeIn;
+    animation-duration: 0.5s;
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(0, 0%, 10%);
+}
+
+.filterPanel label{
+    width: 32%;
+    padding: 3% 0%;
+    text-align: center;
+    border: 2px solid hsl(0, 0%, 90%);
+    border-radius: 5px;
+}
+
+/* ------- email div ----- */
+
+@keyFrames confSel{
+    0% {border: 2px solid hsl(0, 0%, 90%);
+        color: hsl(0, 0%, 90%);}
+    100% {border: 2px solid rgb(12, 199, 140);
+          color: rgb(12, 199, 140);}
+}
+
+@keyFrames cancSel{
+    0% {border: 2px solid hsl(0, 0%, 90%);
+        color: hsl(0, 0%, 90%);}
+    100% {border: 2px solid rgb(209, 15, 89);
+          color: rgb(209, 15, 89);}
+}
+
+@keyFrames confClicked{
+    0% {border: 2px solid rgb(12, 199, 140);
+        color: rgb(12, 199, 140);}
+
+    25% {background-color: rgb(12, 199, 140)}
+
+    100% {background-color: hsl(0, 0%, 10%);}
+}
+
+@keyFrames selClicked{
+    0% {border: 2px solid rgb(209, 15, 89);
+        color: rgb(209, 15, 89);}
+
+    25% {background-color: rgb(209, 15, 89);}
+
+    100% {background-color: hsl(0, 0%, 10%);}
+}
+
+@keyFrames itemHeadrSel{
+    0% {
+        color: hsl(0, 0%, 10%);
+        margin-left: 7%;
+        }
+
+    100% {
+        color: rgb(72, 184, 207);
+        margin-left: 0%;
+        }
+}
+
+.emailRadio{
+    margin: auto;
+    width: 100%;
+    padding: 7px;
+}
+
+.emailRadio input[type=radio]{
+    opacity: 0;
+    width: 0;
+    position: fixed;
+    
+}
+
+.emailRadio input[type="radio"]:checked + label {
+    animation-name: buttonFadeIn;
+    animation-duration: 0.5s;
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(0, 0%, 10%);
+}
+
+.emailRadio label{
+    width: 48%;
+    padding: 2% 8%;
+    text-align: center;
+    border: 2px solid hsl(0, 0%, 90%);
+    border-radius: 5px;
+}
+
+
+.emailFieldsDiv input{
+    padding: 2% 4%;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.error{
+    color: rgb(171, 32, 32);
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+#uemail {
+    border-style: none;
+    background-color: rgb(50, 50, 50);
+    outline: none !important;
+}
+
+#priceReq {
+    border-style: none;
+    background-color: rgb(50, 50, 50);
+    outline: none !important;
+}
+
+#formItem {
+    border-style: none;
+    background-color: rgb(176, 176, 176);
+    outline: none !important;
+    color: rgb(50, 50, 50);
+}
+
+.emailBtns input{
+    width: 48%;
+    outline: none !important;
+    border: none;
+    border: 2px solid hsl(0, 0%, 90%);
+    border-radius: 5px;
+    background-color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 90%);
+    margin-bottom: 6%
+}
+
+#resetbtn:hover {
+    animation-name: cancSel;
+    animation-duration: 0.5s;
+    border: 2px solid rgb(209, 15, 89);
+    color: rgb(209, 15, 89);
+  }
+#resetbtn:active {
+    animation-name: selClicked;
+    animation-duration: 0.5s;
+}
+
+#dataButton:hover {
+    animation-name: confSel;
+    animation-duration: 0.5s;
+    border: 2px solid rgb(12, 199, 140);
+    color: rgb(12, 199, 140);
+}
+
+#dataButton:active {
+    animation-name: confClicked;
+    animation-duration: 0.5s;
+}
+
+.itemHeader {
+    animation-name: itemHeadrSel;
+    animation-duration: 0.5s;
+    color: rgb(72, 184, 207);
+    font-size: 24pt;
+    font-style: italic;
+    font-weight: 300;
+}
 /*
 #leftDiv.mainDiv {
     background-color: beige;

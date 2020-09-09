@@ -25,9 +25,10 @@ function countNumberofEmails($sqlHandler, $email) {
     $q = "SELECT * FROM `emails` WHERE `email` = '" . $email . "'";
     if ($result = $sqlHandler -> query($q)) {
         $rowcount = mysqli_num_rows($result);
-        echo json_encode($rowcount);
+        echo  ($rowcount >= 3);
         return $rowcount < 3;
     }
+    echo 0;
     return false;
 }
 $mysqli -> close();
