@@ -3,6 +3,7 @@
 <?php
 // set max runtime
 set_time_limit(3000);
+ini_set( 'serialize_precision', -1 );
 
 //-------GLOBAL VARIABLES--------
 // old and new timestamps for comparing if minutes/hours have passed
@@ -10,8 +11,8 @@ $OLD_TIME_ST = json_decode(file_get_contents("old_timestamps.json"), true);
 
 // table names for seconds, minutes, hours data, limit for number of rows
 // MUST arrange in increasing time intervals
-$TBL_NAMES = array("bazaarsec", "bazaarminute", "bazaarhour");
-$TBL_ROW_LIM = array(20, 80, 30);
+$TBL_NAMES = array("bsecnew", "bmin", "bhour");
+$TBL_ROW_LIM = array(30, 80, 30);
 
 //--------FUNCTIONS-------------
 function updateDB($sqlHandler){
@@ -27,9 +28,11 @@ function updateDB($sqlHandler){
 	// getting current date, buy sell
 	$timestr = gmdate("His", time());
 	$buysell = getHypixData();
-	$buystr = $buysell[0];
-	$sellstr = $buysell[1];
-	
+
+	// don't add if hypixel is not responding correctly
+	if (strlen($buysell) <= 0){
+		return;
+	}
 	
 	// keeping rowcount in seconds 20
 	for ($i=0; $i < count($TBL_NAMES); $i++){
@@ -41,7 +44,7 @@ function updateDB($sqlHandler){
 
 	
 	// adding data to seconds database
-	addDataToDB($sqlHandler, "bazaarsec", $timestr, $buystr, $sellstr);
+	addDataToDB($sqlHandler, "bsecnew", $timestr, $buysell);
 	
 	// collecting averages into minutes and hour table by checking timestamps
 
@@ -61,9 +64,9 @@ function updateDB($sqlHandler){
 			// use formula: timestamp index to compare = length of timestamp - 2*(i+1) - 1
 			if (checkInterval($oldrow[0], $newrow[0], strlen($oldrow[0]) - 2*($i+1) - 1)){
 				$avg = getAverage($sqlHandler, $tbl, $OLD_TIME_ST[$i], $newrow[0]);
-				$processed = arrayToJSON($avg[0], $avg[1]);
-	
-				addDataToDB($sqlHandler, $TBL_NAMES[$i + 1], $OLD_TIME_ST[$i], $processed[0], $processed[1]);
+				xdebug_break();
+				$processed = json_encode($avg);
+				addDataToDB($sqlHandler, $TBL_NAMES[$i + 1], $OLD_TIME_ST[$i], $processed);
 	
 				$OLD_TIME_ST[$i] = $newrow[0];
 			}
@@ -73,14 +76,13 @@ function updateDB($sqlHandler){
 
 }
 
-function addDataToDB($sqlHandler, $tableName, $time, $buy, $sell){
+function addDataToDB($sqlHandler, $tableName, $time, $data){
 	/*
-	adds one row to end of table with <tableName>, w/ timestamp, sell, buy. Returns true if query successful.
-	
-	column names MUST be called 'timestamp', 'buy', 'sell'.
+	adds one row to end of table with <tableName>, w/ timestamp, sell, buy. Returns true if query successful.	
+	column names MUST be called 'timestamp', 'data'. Assume all parameters are strings.
 	*/
 	
-	$q = "INSERT INTO `" . $tableName . "` (`timestamp`, `buy`, `sell`) VALUES('". $time ."', '" . $buy . "','" . $sell . "');";
+	$q = "INSERT INTO `" . $tableName . "` (`timestamp`, `data`) VALUES ('". $time . "', '". $data ."');";
 	
 	if ($result = $sqlHandler -> query($q)){
 		return true;
@@ -96,22 +98,22 @@ function getHypixData(){
 	
 	$url = 'https://api.hypixel.net/skyblock/bazaar';
 	$data = json_decode(file_get_contents($url), true);
-	$products = $data['products'];
 
-	$buystr = "{ \"buy\": [";
-	$sellstr = "{ \"sell\": [";
+	if ($data == null){
+		return "";
+	}
+
+	$products = $data['products'];
+	$buy_arr = [];
+	$sell_arr = [];
 
 	foreach ($products as $item){
 		
-		$buystr = $buystr . strval(round($item['quick_status']['buyPrice'], 1)) . ",";
-		$sellstr = $sellstr . strval(round($item['quick_status']['sellPrice'], 1)) . ",";
+		$buy_arr[$item["product_id"]] = strval(round($item['quick_status']['buyPrice'], 2));
+		$sell_arr[$item["product_id"]] = strval(round($item['quick_status']['sellPrice'], 2));
 
 	}
-
-	$buystr = substr($buystr, 0, -1) . "]}";
-	$sellstr = substr($sellstr, 0, -1) . "]}";
-	
-	return array($buystr, $sellstr);
+	return json_encode(array($buy_arr, $sell_arr));
 }
 
 function getAverage($sqlHandler, $tableName, $start, $end){
@@ -130,8 +132,9 @@ function getAverage($sqlHandler, $tableName, $start, $end){
 		$row = getRow($sqlHandler, $tableName, $i);
 		if ($row[0] == $start || $foundStart || $row[0]  == $end){
 			
-			$curr_buy = json_decode($row[1], true)["buy"];
-			$curr_sell = json_decode($row[2], true)["sell"];
+			$curr_buy = json_decode($row[1], true)[0];
+			$curr_sell = json_decode($row[1], true)[1];
+			
 			$count++;
 		}
 		
@@ -229,8 +232,8 @@ function sumArray($a, $b){
 	
 	$c = array();
 	
-	for ($i = 0; $i < count($a); $i++){
-		$c[$i] = $a[$i] + $b[$i];
+	foreach ($a as $item => $value){
+		$c[$item] = $a[$item] + $b[$item];
 	}
 	
 	return $c;
@@ -256,32 +259,11 @@ function scaleArray($a, $scalar){
 	
 	$c = array();
 	
-	for ($i = 0; $i < count($a); $i++){
-		$c[$i] = $a[$i] * $scalar;
+	foreach ($a as $item => $value){
+		$c[$item] = round($a[$item] * $scalar, 2);
 	}
 	
 	return $c;
-}
-
-function arrayToJSON($buy, $sell){
-	/*
-	converts buy and sell arrays to JSON format. Assume $buy and $sell arrays are same length.
-
-	returns --> [buyJSON, sellJSON]
-	*/
-
-	$buystr = "{ \"buy\": [";
-	$sellstr = "{ \"sell\": [";
-
-		for ($i = 0; $i < count($buy); $i++){
-			$buystr = $buystr . strval(round($buy[$i], 1)) . ",";
-			$sellstr = $sellstr . strval(round($sell[$i], 1)) . ",";
-		}
-	
-	$buystr = substr($buystr, 0, -1) . "]}";
-	$sellstr = substr($sellstr, 0, -1) . "]}";
-
-	return [$buystr, $sellstr];
 }
 
 
@@ -297,8 +279,9 @@ else{
 	echo 'connected succ';
 }
 
+
 $i = 1;
-while($i < 3){
+while($i < 5){
 	updateDB($mysqli);
 	$i++;
 	sleep(5);
@@ -309,5 +292,4 @@ file_put_contents("old_timestamps.json", json_encode($OLD_TIME_ST));
 $mysqli -> close();
 
 ?>
-
 </html>

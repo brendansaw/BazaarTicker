@@ -62,6 +62,11 @@ function getDBDat(time){
             
             // update buy and sell data graphs, refresh graph
             for (i=0; i<jsonData.length; i++){
+                
+                buyselldat = JSON.parse(jsonData[i][1]);
+                buyrow = buyselldat[0];
+                sellrow = buyselldat[1];
+                // don't add data from db that doesn't include new items
 
                 // changing timestamp to match local time
                 rawTimestamp = jsonData[i][0];
@@ -70,8 +75,8 @@ function getDBDat(time){
                 adjustedTimestamp = newHrs + ":" + rawTimestamp.substring(2,4) + ":" + rawTimestamp.substring(4,6);
 
                 itemStatGraph.data.labels.push(adjustedTimestamp);
-                buyData.push(JSON.parse(jsonData[i][1])["buy"][selectedIndex]);
-                sellData.push(JSON.parse(jsonData[i][2])["sell"][selectedIndex]);
+                buyData.push(buyrow[selectedItem]);
+                sellData.push(sellrow[selectedItem]);
 
                 itemStatGraph.update();
             }
@@ -80,23 +85,18 @@ function getDBDat(time){
     return [timestamps, buydat, selldat];
 }
 
-// colllecting stat data
-function getStats(){
+function getStats(name){
+    /**
+     * collect stat data for an item with <name>
+     */
     $.getJSON(bazaarLink, function(data) {
         products = data.products;
-    
-        itemList = [];
-        itemBuyPrice = [];
-        itemSellPrice = [];
-        for (item in products) {
-            itemList.push(products[item].quick_status.productId);
-            itemBuyPrice.push(products[item].quick_status.buyPrice);
-            itemSellPrice.push(products[item].quick_status.sellPrice);
-        }
+        buysell = [products[name]["quick_status"]["buyPrice"], products[name]["quick_status"]["sellPrice"]];
+
     
     });
 
-    return [itemBuyPrice, itemSellPrice];
+    return buysell;
 }
 
 function setGraphData(timeFrame){
@@ -105,7 +105,7 @@ function setGraphData(timeFrame){
      * timeFrame must be an int in range of 0 --> number of time interval tables-1
      */
 
-    if (selectedIndex == -1){
+    if (selectedItem == ""){
         return;
     }
 
@@ -127,14 +127,12 @@ function updateGraph(){
      * updates graph on screen given a selected item only when the user selects the 'seconds' time interval"
      */
 
-    if (selectedIndex == -1 || selectedTimeInt != 0) {
+    if (selectedItem == "" || selectedTimeInt != 0) {
         return;
     }
-
-    container.innerHTML = "";
-    stats = getStats();
-    itemBuyPrice = stats[0];
-    itemSellPrice = stats[1];
+    stats = getStats(selectedItem);
+    currBuy = stats[0];
+    currSell = stats[1];
     
     var nowTime = new Date();
     minute = nowTime.getMinutes();
@@ -144,25 +142,18 @@ function updateGraph(){
 
     var currTime = nowTime.getHours() + ":" + minute + ":" + second;
 
-    //temporarily set to 0
-    currBuy = itemBuyPrice[selectedIndex];
-    currSell = itemSellPrice[selectedIndex];
+    sellData.push(currSell);
+    buyData.push(currBuy);   
+    itemStatGraph.data.labels.push(currTime);
 
-    // adding new data to graph already filled with data
-    if (true){
-        sellData.push(currSell);
-        buyData.push(currBuy);   
-        itemStatGraph.data.labels.push(currTime);
+    // removing frontmost datapoints, keep graph fixed length
+    sellData.shift();
+    buyData.shift();
+    itemStatGraph.data.labels.shift(); 
 
-        // removing frontmost datapoints
-        sellData.shift();
-        buyData.shift();
-        itemStatGraph.data.labels.shift(); 
-
-    }
     itemStatGraph.update();
-
-    container.appendChild(graph);
 }
 //call update function every 5s
+container.innerHTML = "";
+container.appendChild(graph);
 window.setInterval(updateGraph, 5000);

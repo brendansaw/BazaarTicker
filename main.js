@@ -34,7 +34,7 @@ function checkSize() {
 
 var inputBox = document.getElementById('searchInput');
 
-selectedIndex = -1;
+selectedItem = "";
 enchantStatus = "all";
 function changedEnchanted() {
     if (document.getElementById("allEnchants").checked == true) {
@@ -179,7 +179,7 @@ function printButtonsToSite(arr, arrIndex) {
         container.appendChild(button);
         button.addEventListener("click", function() {
             // update graph parameters
-            selectedIndex = button.value;
+            selectedItem = button.id;
 
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
