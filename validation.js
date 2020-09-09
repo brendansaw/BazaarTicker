@@ -64,17 +64,16 @@ $(".dataButtonClass").click(function() {
             success: function(response)
             {
                 if (response.length > 0) {
-                    alert("you have too many watches")
+                    alert("Watch not added. Reason: you have too many watches")
                 }
 
                 else {
-                    alert("added successfuly");
+                    alert("Watch added successfuly");
                 }
                 
             },
-
-            error: function(){
-                alert("error occured");
+            error: function(response){
+                alert("server error occured");
             }
         })
         

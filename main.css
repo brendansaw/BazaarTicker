@@ -35,14 +35,14 @@ h1, h4 {
 }
 
 @keyFrames stretchSearch{
-    0% {width: 20%;}
+    0% {width: 45%;}
     100% {width: 90%;}
 
 }
 
 @keyFrames hideSearch{
     0% {width: 90%;}
-    100% {width: 20%;}
+    100% {width: 45%;}
 
 }
 
@@ -71,7 +71,7 @@ h1, h4 {
 }
 
 .searchContainer input[type=text] {
-    width: 20%;
+    width: 45%;
     height: 30px;
     background-color: hsl(0, 0%, 10%);
     border-style: none;
