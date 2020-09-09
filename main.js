@@ -35,8 +35,8 @@ function checkSize() {
 // this is the search bar
 var inputBox = document.getElementById('searchInput');
 
+selectedItem = "";
 // these are the radio buttons that select for the enchanted status
-selectedIndex = -1;
 enchantStatus = "all";
 function changedEnchanted() {
     if (document.getElementById("allEnchants").checked == true) {
@@ -213,7 +213,7 @@ function printButtonsToSite(arr, arrIndex) {
         container.appendChild(button);
         button.addEventListener("click", function() {
             // update graph parameters
-            selectedIndex = button.value;
+            selectedItem = button.id;
 
             document.getElementById("buyBody_id").innerHTML = "";
             document.getElementById("sellBody_id").innerHTML = "";
