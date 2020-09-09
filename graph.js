@@ -8,6 +8,7 @@ graph = document.createElement('canvas');
 var ctx = graph.getContext('2d');
 container = document.getElementById('graphDiv');
 
+Chart.defaults.global.defaultFontColor = 'rgb(194, 194, 194)';
 // creating chart object
 var itemStatGraph = new Chart(ctx, {
     type: 'line',
@@ -15,17 +16,17 @@ var itemStatGraph = new Chart(ctx, {
             labels: [],
             datasets: [{
                 label: 'Buy Price',
-                backgroundColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(3, 252, 152)',
                 fill: false,
-                borderColor: 'rgb(255, 0, 0)',
+                borderColor: 'rgb(3, 252, 152)',
                 data: buyData
             },
 
             {
                 label: 'Sell Price',
-                backgroundColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(255, 0, 89)',
                 fill: false,
-                borderColor: 'rgb(0, 255, 0)',
+                borderColor: 'rgb(255, 0, 89)',
                 data: sellData
             }]
         },
@@ -66,20 +67,23 @@ function getDBDat(time){
                 buyselldat = JSON.parse(jsonData[i][1]);
                 buyrow = buyselldat[0];
                 sellrow = buyselldat[1];
+                
                 // don't add data from db that doesn't include new items
+                if (buyrow.hasOwnProperty(selectedItem) && sellrow.hasOwnProperty(selectedItem)){
+                    buyData.push(buyrow[selectedItem]);
+                    sellData.push(sellrow[selectedItem]);
 
-                // changing timestamp to match local time
-                rawTimestamp = jsonData[i][0];
-                newHrs = (Math.abs(Number(rawTimestamp.substring(0,2)) - offset) % 24).toString();
-                if (newHrs.length < 2){newHrs = "0" + newHrs;}
-                adjustedTimestamp = newHrs + ":" + rawTimestamp.substring(2,4) + ":" + rawTimestamp.substring(4,6);
+                    // changing timestamp to match local time
+                    rawTimestamp = jsonData[i][0];
+                    newHrs = (Math.abs(Number(rawTimestamp.substring(0,2)) - offset) % 24).toString();
+                    if (newHrs.length < 2){newHrs = "0" + newHrs;}
+                    adjustedTimestamp = newHrs + ":" + rawTimestamp.substring(2,4) + ":" + rawTimestamp.substring(4,6);
 
-                itemStatGraph.data.labels.push(adjustedTimestamp);
-                buyData.push(buyrow[selectedItem]);
-                sellData.push(sellrow[selectedItem]);
-
-                itemStatGraph.update();
+                    itemStatGraph.data.labels.push(adjustedTimestamp);
+                    itemStatGraph.update();
+                }
             }
+            
         }
     });
     return [timestamps, buydat, selldat];
@@ -89,11 +93,10 @@ function getStats(name){
     /**
      * collect stat data for an item with <name>
      */
+
     $.getJSON(bazaarLink, function(data) {
         products = data.products;
-        buysell = [products[name]["quick_status"]["buyPrice"], products[name]["quick_status"]["sellPrice"]];
-
-    
+        buysell = [products[name]["quick_status"]["buyPrice"].toFixed(2), products[name]["quick_status"]["sellPrice"].toFixed(2)];
     });
 
     return buysell;

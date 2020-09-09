@@ -4,7 +4,9 @@
     <head>
         <meta charset="utf-8">
         
-        <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,300;0,700;1,100;1,300;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
         <script src="vendor/jquery/jquery-3.5.1.js"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
         <script src="vendor/chart/Chart.js"></script>
@@ -30,33 +32,40 @@
         </nav>
 
         <div class="mainDiv" id="leftDiv">
-            <h4><b>Search for a product:</b></h4>
+            <h1><b>Search:</b></h1>
             <div class="searchInterfaceDiv" id="searchInterface">
+
+                <div class="filterPanel" id="searchFilterPanel">
                 <form>
-                    <p><b>Enchanted Status Item Filter:</b></p>
-                    <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">All<br>
-                    <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">Enchanted Only<br>
-                    <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">Unenchanted Only
-                </form><br>
-                <p><b>Search for an item:</b></p>
-                <input type="text" name="fname" class="searchInput" id="searchInput">
-        
-                <br>
+                    <input type="radio" name="enchantStatus" id="allEnchants" onclick="changedEnchanted()">
+                    <label for="allEnchants">All</label>
+                    <input type="radio" name="enchantStatus" id="enchanted" onclick="changedEnchanted()">
+                    <label for="enchanted">Enchanted</label>
+                    <input type="radio" name="enchantStatus" id="unenchanted" onclick="changedEnchanted()">
+                    <label for="unenchanted">Unenchanted</label>
+                </form>
+                </div>
+
+                <div class="searchContainer">
+                    <i class="glyphicon glyphicon-search"></i> 
+                    <input type="text" name="fname" class="searchInput" id="searchInput" autocomplete="off">
+                </div>
                 <div class="sortedInterfaceDiv" id="sortedInterface"></div>
             </div>
         </div>
 
         <div class="mainDiv" id="midDiv">
-            <h4><b>History:</b></h4>
-            <div class = "buttonPanel">
-
-                <form>
-                    <input type="radio" name="timeIntervalSelect" value=0 checked="checked" onclick="changeGraphInterval(value)">Seconds</input>
-                    <input type="radio" name="timeIntervalSelect" value=1 onclick="changeGraphInterval(value)">Minutes</input>
-                    <input type="radio" name="timeIntervalSelect" value=2 onclick="changeGraphInterval(value)">Hours</input>
+            <h1 id="itemHeader"><b id="histHeader">History:</b></h1>
+            <div class="graphDisplay" id="graphDiv"></div>
+            <div class="buttonPanel">
+                <form class="radioPanel">
+                    <input type="radio" class = "tintv" name="timeIntervalSelect" value=0 id="tsel1" checked="checked" onclick="changeGraphInterval(value)">
+                    <label for="tsel1">Seconds</label>
+                    <input type="radio" class = "tintv" name="timeIntervalSelect" value=1 id="tsel2" onclick="changeGraphInterval(value)">
+                    <label for="tsel2">Minutes</label>
+                    <input type="radio" class = "tintv" name="timeIntervalSelect" value=2 id="tsel3" onclick="changeGraphInterval(value)">
+                    <label for="tsel3">Hours</label>
                 </form>
-            </div>
-            <div class="graphDisplay" id="graphDiv">
             </div>
             <div class="itemDivContainer">
                 <div class="itemImgDiv" id="itemImgId"></div>
@@ -64,27 +73,27 @@
             <div class="priceBuyTablePos">
                 <table style="width:100%" id="priceBuyTable" class="table">
                     <thead>
-                        <caption id="itemBuyCaption" class="itemBuyCaptionClass" style="text-align: right; margin-right: 25px; color: white">Buy Orders</caption>
-                        <tr>
+                        <caption id="itemBuyCaption" class="itemCaptionClass">Buy Orders</caption>
+                        <tr id="buyColumnLabel" class="columnLabel">
                             <th>Orders</th>
                             <th>Quantity</th>
                             <th>Price</th>
                         </tr>
                     </thead>
-                    <tbody id="buyBody_id" class ="buyBody_class">  
+                    <tbody id="buyBody_id" class ="tBody_class">  
                     </tbody>
                 </table>
             </div>
             
             <div class="priceSellTablePos">
                 <table style="width:100%" id="priceSellTable" class="table">
-                    <caption id="itemSellCaption" class="itemSellCaptionClass" style="text-align: left; margin-left: 25px; color: white">Sell Orders</caption>
-                    <tr>
-                        <th style="text-align: right">Price</th>
-                        <th style="text-align: right">Quantity</th>
-                        <th style="text-align: right">Orders</th>
+                    <caption id="itemSellCaption" class="itemCaptionClass">Sell Orders</caption>
+                    <tr id="sellColumnLabel" class="columnLabel">
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Orders</th>
                     </tr>
-                    <tbody id="sellBody_id" class ="sellBody_class">
+                    <tbody id="sellBody_id" class ="tBody_class">
                     </tbody>
                 </table>
             </div>
@@ -94,39 +103,40 @@
     
 
         <div class="mainDiv" id="rightDiv">
-            <h4><b>Input an email to get notified when an item reaches a price:</b></h4>
+            <h1><b>Add a Watch:</b></h1>
             <div class="emailForm">
             <form name="Data_Form" action="">
-
-                <label for="uemail">Email</label><br>
-                <input type="email" class="uemail-class" id="uemail" name="uemail" autocomplete="on" size="30" value=""><br>
-                <label class="error" for="uemail" id="uemail_error">Please enter a valid E-mail</label>
-                <br><br>
-
-                <label for="formItem">Selected Item</label><br>
-                <input type="text" id="formItem" name="formItem" size="30" disabled="on" value=""><br>
-                <label class="error" for="formItem" id="formItem_error">Select an item by searching</label>
-                <br><br>
-
-                <input type="radio" id="Buy" name ="buyorsell" value="Buy">
-                <label for="Buy">Buy</label><br>
-                <input type="radio" id="Sell" name="buyorsell" value="Sell">
-                <label for="Sell">Sell</label><br>
                 <label class="error" for="buyorsell" id="buyorsell_error">Select an option</label>
-                <br><br>
+                <div class="emailRadio">
+                    <input type="radio" id="Buy" name ="buyorsell" value="Buy">
+                    <label for="Buy">Buy</label>
+                    <input type="radio" id="Sell" name="buyorsell" value="Sell">
+                    <label for="Sell">Sell</label>
+                </div>
+                   
+                <div class="emailFieldsDiv">
+                    <label class="error" for="uemail" id="uemail_error">Please enter a valid E-mail</label>
+                    <input type="email" placeholder="Type Your Email..." class="uemail-class" id="uemail" name="uemail" autocomplete="on" size="30" value=""><br>
 
-                <label for="priceReq">Price</label><br>
-                <input type="number" id="priceReq" name="priceReq" size="30" value="" min="0"><br>
-                <label class="error" for="priceReq" id="priceReq_error">Please specify a price</label>
+                    <label class="error" for="priceReq" id="priceReq_error">Please specify a price</label>
+                    <input type="number" placeholder="Choose a Price to Monitor..." id="priceReq" name="priceReq" size="30" value="" min="0"><br>
+                    
+                    <label class="error" for="formItem" id="formItem_error">Select an item by searching</label>
+                    <input type="text" id="formItem" name="formItem" size="30" disabled="on" value="" placeholder="No Item Currently Selected"><br>
+                </div>
+                
+                <div class=emailBtns>
+                    <input type="submit" name="submit" id="dataButton" class="dataButtonClass" value="Add Watch">
+                    <input type="reset" id="resetbtn" value="Reset Fields">   
+                </div>
 
-                <br><br>
-
-                <input type="submit" name="submit" id="dataButton" class="dataButtonClass" value="Add Request">
-                <input type="reset">
                 
             </form>
             </div>
-            <h5><b>The price for a Buy item represents the maximum price that you want to buy the item at. The price for a Sell item represents the minimum price that you want to sell the item at. <br>When there is an order price less than your buy order price, or order price more than your sell order price, then an email will be sent to the specified email.</b></h5>
+
+            <div class="emailXplain">
+                <p>Get notified when an item reaches a price. Selecting 'Buy' will place a watch on the selected item's buy price. Likewise, 'Sell' will place a watch on the sell price. When your watch reaches the threshold price you typed in, you will receive an email notification and your watch will be deleted. Watches older than a week will also be automatically deleted. There is a maximum of 3 active watches per email so be careful when you're creating one!</p>
+            </div>
         </div>
         
         <script src="graph.js"></script>

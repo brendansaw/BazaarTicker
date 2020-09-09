@@ -63,8 +63,18 @@ $(".dataButtonClass").click(function() {
             data: obj,
             success: function(response)
             {
-                jsonData = JSON.parse(response);
-                console.log(jsonData);
+                if (response.length > 0) {
+                    alert("you have too many watches")
+                }
+
+                else {
+                    alert("added successfuly");
+                }
+                
+            },
+
+            error: function(){
+                alert("error occured");
             }
         })
         
