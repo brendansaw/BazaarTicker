@@ -2,7 +2,7 @@
 $uemail = $_POST['uemail'];
 $item = $_POST['item'];
 $buyorsell = $_POST['buyorsell'];
-$priceReq =  $_POST['priceReq'];
+$priceReq =  round($_POST['priceReq'], 1);
 
 $mysqli = new mysqli('localhost:3306', 'root', 'root', 'test');
 if ($mysqli->connect_error){
