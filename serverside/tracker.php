@@ -47,7 +47,6 @@ function updateDB($sqlHandler){
 	addDataToDB($sqlHandler, "bsecnew", $timestr, $buysell);
 	
 	// collecting averages into minutes and hour table by checking timestamps
-
 	for ($i = 0; $i < count($TBL_NAMES) - 1; $i++){
 		$tbl = $TBL_NAMES[$i];
 		$rowlen = getNumRows($sqlHandler, $tbl);
@@ -64,7 +63,6 @@ function updateDB($sqlHandler){
 			// use formula: timestamp index to compare = length of timestamp - 2*(i+1) - 1
 			if (checkInterval($oldrow[0], $newrow[0], strlen($oldrow[0]) - 2*($i+1) - 1)){
 				$avg = getAverage($sqlHandler, $tbl, $OLD_TIME_ST[$i], $newrow[0]);
-				xdebug_break();
 				$processed = json_encode($avg);
 				addDataToDB($sqlHandler, $TBL_NAMES[$i + 1], $OLD_TIME_ST[$i], $processed);
 	

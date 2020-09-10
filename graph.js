@@ -93,11 +93,17 @@ function getStats(name){
     /**
      * collect stat data for an item with <name>
      */
+    buysell = [];
 
-    $.getJSON(bazaarLink, function(data) {
-        products = data.products;
-        buysell = [products[name]["quick_status"]["buyPrice"].toFixed(2), products[name]["quick_status"]["sellPrice"].toFixed(2)];
-    });
+    $.ajax({
+        url: bazaarLink,
+        async: false,
+        success: function(data){
+            products = data.products;
+            buysell.push(products[name]["quick_status"]["buyPrice"].toFixed(2));
+            buysell.push(products[name]["quick_status"]["sellPrice"].toFixed(2))
+        }
+    })
 
     return buysell;
 }
