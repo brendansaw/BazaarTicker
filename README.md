@@ -39,3 +39,6 @@ Last working build with:
 
 ## Inspiration
 This app is inspired by other Hypixel API trackers like (https://stonks.gg)
+
+## Screenshot
+![](https://user-images.githubusercontent.com/52841128/93009946-9468e780-f53b-11ea-98c1-3ff551a6e213.png "bazaarticker.tk screenshot Sep 12, 2020")
