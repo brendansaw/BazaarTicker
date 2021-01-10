@@ -75,7 +75,7 @@ function getDBDat(time){
 
                     // changing timestamp to match local time
                     rawTimestamp = jsonData[i][0];
-                    newHrs = (Math.abs(Number(rawTimestamp.substring(0,2)) - offset) % 24).toString();
+                    newHrs = ((Number(rawTimestamp.substring(0,2)) - offset + 24) % 24).toString();
                     if (newHrs.length < 2){newHrs = "0" + newHrs;}
                     adjustedTimestamp = newHrs + ":" + rawTimestamp.substring(2,4) + ":" + rawTimestamp.substring(4,6);
 
