@@ -1,5 +1,6 @@
 $.ajaxSetup({ cache:false});
 
+
 // main.js
 checkSize();
 $(window).resize(function() {
@@ -255,7 +256,15 @@ function changeGraphInterval(value){
      * onclick for when a timeinterval radio button is clicked. Reloads graph
      */
     setGraphData(value);
-}
 
+    // adding or removing prediction slider
+    if (value==2){
+        document.getElementById("predSliderContainer").innerHTML = "<input type=\"range\" min=\"1\" max=\"24000\" value=\"12000\" class=\"slider\" id=\"3hpredictSlider\" onchange=\"graphPredict(this.value)\">";
+    }
+
+    else{
+        document.getElementById("predSliderContainer").innerHTML = "";
+    }
+}
 
 
