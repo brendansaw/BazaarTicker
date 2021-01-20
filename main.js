@@ -1,5 +1,6 @@
 $.ajaxSetup({ cache:false});
 
+
 // main.js
 checkSize();
 $(window).resize(function() {
@@ -250,12 +251,27 @@ function getSelTimeInterval(){
     }
 }
 
+function updateSlideLbl(value){
+    // add listener for the popup box, purely for UI
+    var slidertitle = document.getElementById("slidertitle");
+    slidertitle.innerHTML = Math.floor(value / 1000).toString() + "h Prediction";
+}
+
 function changeGraphInterval(value){
     /**
      * onclick for when a timeinterval radio button is clicked. Reloads graph
      */
     setGraphData(value);
-}
 
+    // adding or removing prediction slider
+    if (value==2){
+        document.getElementById("predSliderContainer").innerHTML = "<span id=\"slidertitle\">0h Prediction</span><input type=\"range\" min=\"1\" max=\"24000\" value=\"1\" class=\"slider\" id=\"1hpredictSlider\" onchange=\"graphPredict(this.value)\" oninput=\"updateSlideLbl(this.value)\">";
+
+    }
+
+    else{
+        document.getElementById("predSliderContainer").innerHTML = "";
+    }
+}
 
 
