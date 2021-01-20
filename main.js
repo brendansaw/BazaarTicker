@@ -265,7 +265,7 @@ function changeGraphInterval(value){
 
     // adding or removing prediction slider
     if (value==2){
-        document.getElementById("predSliderContainer").innerHTML = "<span id=\"slidertitle\">12h Prediction</span><input type=\"range\" min=\"1\" max=\"24000\" value=\"12000\" class=\"slider\" id=\"1hpredictSlider\" onchange=\"graphPredict(this.value)\" oninput=\"updateSlideLbl(this.value)\">";
+        document.getElementById("predSliderContainer").innerHTML = "<span id=\"slidertitle\">0h Prediction</span><input type=\"range\" min=\"1\" max=\"24000\" value=\"1\" class=\"slider\" id=\"1hpredictSlider\" onchange=\"graphPredict(this.value)\" oninput=\"updateSlideLbl(this.value)\">";
 
     }
 

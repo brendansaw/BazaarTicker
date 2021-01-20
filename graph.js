@@ -335,7 +335,7 @@ function graphPredict(sliderVal){
         sell_pred = Array.from(sell_pred)[0];
 
         // update input for next iteration
-        new_time = Number((itemStatGraph.data.labels[itemStatGraph.data.labels.length - 1].substring(0, 2)) + 1) % 24
+        new_time = (Number((itemStatGraph.data.labels[itemStatGraph.data.labels.length - 1].substring(0, 2))) + 1) % 24
 
         norm_buy_in.push(buy_pred);
         norm_sell_in.push(sell_pred);
