@@ -205,24 +205,47 @@ function updateGraph(){
     itemStatGraph.update();
 }
 
+function arrmean(arr){
+    /**
+     * return mean of array, assume length > 0
+     */
+    arrsum = 0;
+    for (x in arr){
+       arrsum = arrsum + arr[x];
+    }
+
+    return arrsum / arr.length
+}
+
+function stdev(arr){
+     mean = arrmean(arr);
+     varsum = 0;
+
+     for (x in arr){
+        varsum = varsum + ((arr[x] - mean) * (arr[x] - mean));
+     }
+
+     return Math.sqrt(varsum / arr.length);
+}
+
 function normalizeArr(arr){
     res = [];
     
-    maxVal = Math.max.apply(null, arr);
-    minVal = Math.min.apply(null, arr);
+    mean = arrmean(arr);
+    sd = stdev(arr);
 
     for (x in arr){
-        res.push((arr[x]-minVal) / (maxVal - minVal));
+        res.push((arr[x] - mean) / sd);
     }
 
     return res;
 }
 
-function denormalize(arr, maxVal, minVal){
+function denormalize(arr, mean, sd){
     res = [];
 
     for (x in arr){
-        res.push(arr[x]*(maxVal - minVal) + minVal);
+        res.push(arr[x]*sd + mean);
     }
 
     return res;
@@ -323,10 +346,10 @@ function graphPredict(sliderVal){
         norm_buy_in = normalizeArr(buy_in);
         time_in = labelsToInt(itemStatGraph.data.labels[itemStatGraph.data.labels.length - 1]);
 
-        buyMax = Math.max.apply(null, buy_in);
-        sellMax = Math.max.apply(null, sell_in);
-        buyMin = Math.min.apply(null, buy_in);
-        sellMin = Math.min.apply(null, sell_in);
+        buyMean = arrmean(buy_in);
+        sellMean = arrmean(sell_in);
+        buySD = stdev(buy_in);
+        sellSD = stdev(sell_in);
 
         // predict buy sell
         buy_pred = model.predict(tf.tensor([[norm_buy_in, time_in]])).dataSync();
@@ -342,8 +365,8 @@ function graphPredict(sliderVal){
         time_in.push(new_time);
 
         // denormalize results, shift the input "window" one over to the right
-        buy_in = denormalize(norm_buy_in, buyMax, buyMin);
-        sell_in = denormalize(norm_sell_in, sellMax, sellMin);
+        buy_in = denormalize(norm_buy_in, buyMean, buySD);
+        sell_in = denormalize(norm_sell_in, sellMean, sellSD);
 
         buy_in.shift();
         sell_in.shift();
